@@ -13,8 +13,9 @@
         android:id="@+id/tvSignInTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:textSize="24sp"
+        android:text="@string/sign_in"
+        android:textSize="30sp"
+        android:fontFamily="@font/sourgummy_bold"
         android:textColor="#4A148C"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp" />
@@ -60,7 +61,6 @@
         android:id="@+id/ivCharacterLogin"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/pear_character"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 
