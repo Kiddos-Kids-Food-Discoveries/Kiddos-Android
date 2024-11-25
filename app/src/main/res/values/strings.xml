@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Kiddos-Android</string>
+    <string name="continuebtn">Continue</string>
+    <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="tidak_punya_akun">Don’t have an account? Sign Up</string>
 </resources>

@@ -13,10 +13,10 @@
         android:id="@+id/tvSignInTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/sourgummy_medium"
         android:text="@string/sign_in"
-        android:textSize="30sp"
-        android:fontFamily="@font/sourgummy_bold"
-        android:textColor="#4A148C"
+        android:textSize="24sp"
+        android:textColor="@color/Purple900"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp" />
 
@@ -24,7 +24,7 @@
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext" />
@@ -33,7 +33,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_edittext" />
@@ -42,8 +42,8 @@
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot password?"
-        android:textColor="#4A148C"
+        android:text="@string/forgot_password"
+        android:textColor="@color/Purple900"
         android:textSize="14sp"
         android:layout_gravity="end"
         android:layout_marginBottom="24dp" />
@@ -52,15 +52,16 @@
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#FF9800"
-        android:text="Continue"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/OrangePill"
+        android:text="@string/continuebtn"
+        android:textColor="@color/white"
         android:layout_marginBottom="16dp" />
 
     <ImageView
         android:id="@+id/ivCharacterLogin"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:src="@drawable/pear_character"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 
@@ -68,7 +69,7 @@
         android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don’t have an account? Sign Up"
+        android:text="@string/tidak_punya_akun"
         android:textColor="#4A148C"
         android:textSize="14sp"
         android:layout_gravity="center_horizontal" />
