@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteOff"
+    android:paddingBottom="?attr/actionBarSize"
+    tools:context=".ui.activity.ScanResultActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteOff">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
+                style="@style/RoundedBottomMaterialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/purpleKiddos"
+                app:layout_constraintBottom_toTopOf="@id/foodDetailLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:strokeColor="@color/purpleKiddos">
+
+                <LinearLayout
+                    android:id="@+id/profileLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="25dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/foodNameTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:text="Sawi"
+                            android:textColor="@color/white"
+                            android:textSize="32sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_back"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:layout_marginTop="10dp"
+                        app:srcCompat="@drawable/img_cabbage" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/galleryButton"
+                            style="@style/OrangeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="86dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/button_red"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:letterSpacing="0"
+                            android:text="Rescan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/analyzeButton"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/analyzeButton"
+                            style="@style/RedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="86dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/button_orange"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:letterSpacing="0"
+                            android:text="Home"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/galleryButton" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/foodDetailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/foodNameDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/inter_extrabold"
+                    android:text="Sawi"
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="32sp"
+                    app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
+                    app:layout_constraintRight_toLeftOf="@id/btnTranslation"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnTranslation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Translation"
+                    android:src="@drawable/ic_translate"
+                    app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
+                    app:layout_constraintLeft_toRightOf="@id/foodNameDescription"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/foodNutrition_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="food nutrition"
+                    android:orientation="horizontal"
+                    app:layoutManager="LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foodNameDescription" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/foodDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:text="Pada bagian ini berisikan khasiat dari makanan jika ada khasiat untuk tubuh agar anak kecil itu paham, sedikit aja kok."
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

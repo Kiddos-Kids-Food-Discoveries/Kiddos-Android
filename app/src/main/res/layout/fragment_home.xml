@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteOff"
+    android:paddingBottom="?attr/actionBarSize"
+    tools:context=".ui.fragment.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purpleKiddos">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/HelloName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Hello, Tzuyu"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintRight_toLeftOf="@id/profileImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/profile_image_border"
+                android:contentDescription="profile image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/appIcon"
+                android:layout_width="170dp"
+                android:layout_height="206dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="-35dp"
+                android:background="@drawable/kiddos_icon_half"
+                android:contentDescription="profile image"
+                app:layout_constraintBottom_toTopOf="@id/cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileImage" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/motivationalText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="-100dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineSpacingExtra="4dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing. "
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@id/cardView"
+                app:layout_constraintEnd_toStartOf="@id/appIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/HelloName" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView"
+                style="@style/RoundedTopMaterialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/whiteOff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appIcon"
+                app:strokeColor="@color/whiteOff">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/scanLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/financeInfoCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:cardBackgroundColor="@color/orangePill"
+                            app:cardCornerRadius="40dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="@color/white">
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/scanIcon"
+                            android:layout_width="127dp"
+                            android:layout_height="110dp"
+                            android:layout_marginStart="50dp"
+                            android:background="@drawable/ic_scan_border"
+                            android:contentDescription="scan icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="SCAN"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="@id/scanIcon"
+                            app:layout_constraintLeft_toLeftOf="@id/scanIcon"
+                            app:layout_constraintRight_toRightOf="@id/scanIcon"
+                            app:layout_constraintTop_toTopOf="@id/scanIcon" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/appleIcon"
+                            android:layout_width="161dp"
+                            android:layout_height="165dp"
+                            android:layout_marginEnd="-10dp"
+                            android:background="@drawable/ic_apple"
+                            android:contentDescription="apple icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="30dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Temukan Makanan Terbaik"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:textColor="@color/purpleKiddos"
+                            android:textSize="20sp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/foods_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:contentDescription="food nutrition"
+                            android:orientation="horizontal"
+                            app:layoutManager="LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/foodNameDescription"
+                            tools:listitem="@layout/item_food"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="25dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Berita Terbaik"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/inter_extrabold"
+                            android:textColor="@color/purpleKiddos"
+                            android:textSize="20sp"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/news_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:contentDescription="berita makanan"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/foodNameDescription"
+                            tools:listitem="@layout/item_news"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

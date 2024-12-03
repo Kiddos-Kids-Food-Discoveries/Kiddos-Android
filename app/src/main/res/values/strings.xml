@@ -6,4 +6,9 @@
     <string name="email">Email</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="tidak_punya_akun">Don’t have an account? Sign Up</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

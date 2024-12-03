@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#FFFFFF"
-    tools:context=".SignupActivity">
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/tvSignUpTitle"
@@ -58,7 +57,6 @@
         android:id="@+id/ivCharacterSignUp"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/orange_character"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 </LinearLayout>

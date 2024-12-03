@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@color/whiteOff"
+    tools:context=".ui.activity.SettingActivity">
+
+
+
+    <TextView
+        android:id="@+id/tvTopBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="Pengaturan"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/purpleKiddos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/icon_theme"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Notification Icon"
+        android:src="@drawable/ic_notif"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTopBarTitle" />
+
+    <TextView
+        android:id="@+id/title_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Notifikasi"
+        android:textColor="@color/purpleKiddos"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/icon_theme"
+        app:layout_constraintTop_toTopOf="@id/icon_theme" />
+
+    <TextView
+        android:id="@+id/desc_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Aktifkan peningat harian"
+        android:textSize="14sp"
+        android:textColor="@color/purpleKiddos"
+        app:layout_constraintStart_toEndOf="@id/icon_theme"
+        app:layout_constraintTop_toBottomOf="@id/title_theme" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/icon_theme" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
