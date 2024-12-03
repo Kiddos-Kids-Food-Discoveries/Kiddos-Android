@@ -13,6 +13,9 @@
         android:theme="@style/Theme.KiddosAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.SplashScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.SettingActivity"
             android:exported="false" />
         <activity
