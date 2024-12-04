@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.bangkit.kiddos_android.databinding.FragmentHistoriBinding
-import org.bangkit.kiddos_android.viewmodel.HistoriViewModel
+import org.bangkit.kiddos_android.ui.viewmodel.HistoriViewModel
 
 class HistoriFragment : Fragment() {
 

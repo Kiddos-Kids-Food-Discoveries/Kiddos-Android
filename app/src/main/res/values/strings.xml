@@ -12,4 +12,21 @@
     <string name="title_notifications">Notifications</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="splash_screen">This is the Splash Screen</string>
+    <string name="email_required">Email diperlukan</string>
+    <string name="password_required">Kata sandi diperlukan</string>
+    <string name="password_min_length">Kata sandi harus memiliki setidaknya 8 karakter</string>
+    <string name="login_success">Login berhasil</string>
+    <string name="name_required">Name required</string>
+    <string name="password_mismatch">Password don\'t match</string>
+    <string name="register_successful">Register success</string>
+    <string name="logout_confirmation_message">Are you sure you want to log out?</string>
+    <string name="logout_confirmation_yes">Yes</string>
+    <string name="logout_confirmation_no">No</string>
+    <string name="logout_successful">Logout Successful</string>
+    <string name="reset_password_confirmation_title">Reset Password</string>
+    <string name="reset_password_confirmation_message">Are you sure you want to reset the password for %1$s?</string>
+    <string name="reset_password_button_yes">Yes</string>
+    <string name="reset_password_button_no">No</string>
+    <string name="failed_to_send_reset_link">Failed to send reset link</string>
+    <string name="request_failed">Request failed: %1$s</string>
 </resources>

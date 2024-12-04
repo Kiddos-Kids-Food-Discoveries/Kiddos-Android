@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="?attr/actionBarSize"
     android:background="@color/whiteOff"
-    tools:context=".ui.fragment.ProfilFragment">
+    tools:context=".ui.fragment.ProfileFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -63,6 +63,7 @@
                         android:layout_marginTop="25dp" />
 
                     <LinearLayout
+                        android:id="@+id/buttonDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -163,7 +164,7 @@
                         android:layout_gravity="center_horizontal"/>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/logoutButton"
+                        android:id="@+id/action_logout"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginEnd="30dp"

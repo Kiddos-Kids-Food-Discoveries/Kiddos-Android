@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.bangkit.kiddos_android.databinding.FragmentScanBinding
-import org.bangkit.kiddos_android.viewmodel.ProfilViewModel
+import org.bangkit.kiddos_android.ui.viewmodel.ProfileViewModel
 
 class ScanFragment : Fragment() {
 
@@ -22,8 +22,8 @@ class ScanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val profilViewModel =
-            ViewModelProvider(this).get(ProfilViewModel::class.java)
+        val profileViewModel =
+            ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         _binding = FragmentScanBinding.inflate(inflater, container, false)
         val root: View = binding.root

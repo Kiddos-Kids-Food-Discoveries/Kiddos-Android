@@ -1,39 +1,43 @@
 package org.bangkit.kiddos_android.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.datastore.preferences.core.Preferences
+import com.google.android.material.textview.MaterialTextView
+import org.bangkit.kiddos_android.data.preferences.UserPreference
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.bangkit.kiddos_android.databinding.FragmentHomeBinding
-import org.bangkit.kiddos_android.viewmodel.HomeViewModel
+
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var userPreference: UserPreference
+    private lateinit var helloNameTextView: MaterialTextView
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+    ): View? {
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
-    }
+        userPreference = UserPreference.getInstance(requireContext())
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        helloNameTextView = binding.HelloName
+
+        lifecycleScope.launch {
+            userPreference.getName().collect { userName ->
+                Log.d("UserPreference", "Collected name: $userName")
+                helloNameTextView.text = "Hello, $userName"
+            }
+        }
+
+        return binding.root
     }
 }

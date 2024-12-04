@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="#FFFFFF">
 
     <TextView
-        android:id="@+id/tvSignInTitle"
+        android:id="@+id/tvSignUpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:text="Sign Up"
         android:fontFamily="@font/inter_bold"
-        android:text="@string/sign_in"
+        android:textSize="30sp"
         android:textColor="#4A148C"
-        android:textSize="30sp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp" />
+
+    <EditText
+        android:id="@+id/etNama"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Nama"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -31,36 +43,37 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
-        android:hint="Password"
+        android:hint="Insert Password"
+        android:inputType="textPassword"
+        android:paddingStart="20dp" />
+
+    <EditText
+        android:id="@+id/etRePassword"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Retype Password"
         android:inputType="textPassword"
         android:paddingStart="20dp" />
 
     <Button
-        android:id="@+id/btnContinue"
+        android:id="@+id/btnContinueSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="#FF9800"
         android:text="Continue"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
 
     <ImageView
-        android:id="@+id/ivCharacterLogin"
+        android:id="@+id/ivCharacterSignUp"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Don’t have an account? Sign Up"
-        android:textColor="#4A148C"
-        android:textSize="14sp" />
 
     <ProgressBar
         android:id="@+id/progressBarLoading"

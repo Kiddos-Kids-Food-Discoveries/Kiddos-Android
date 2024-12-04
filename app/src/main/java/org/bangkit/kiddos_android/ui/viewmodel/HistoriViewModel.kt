@@ -1,4 +1,4 @@
-package org.bangkit.kiddos_android.viewmodel
+package org.bangkit.kiddos_android.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
