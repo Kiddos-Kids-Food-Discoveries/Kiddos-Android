@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purpleKiddos"
+    android:background="@drawable/kiddos_backdrop"
+    android:scaleType="centerCrop"
     tools:context=".ui.activity.SplashScreenActivity">
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/splash_screen"
         android:scaleType="fitCenter"
-        android:src="@drawable/kiddos_full_icon"
+        android:src="@drawable/kiddos_logo_full"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

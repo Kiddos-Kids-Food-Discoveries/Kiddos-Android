@@ -29,4 +29,10 @@
     <string name="reset_password_button_no">No</string>
     <string name="failed_to_send_reset_link">Failed to send reset link</string>
     <string name="request_failed">Request failed: %1$s</string>
+    <string name="home_welcome_text">Selamat Datang Kiddos Lovers. Ayo Pelajari Makananmu!</string>
+    <string name="button_continue_signup">Continue</string>
+    <string name="signup_title">Sign Up</string>
+    <string name="name_hint_signup">Name</string>
+    <string name="email_hint_signup">Email</string>
+    <string name="password_hint_signup">Password</string>
 </resources>

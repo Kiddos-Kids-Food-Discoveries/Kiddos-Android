@@ -16,8 +16,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/purpleKiddos">
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/kiddos_backdrop">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/HelloName"
@@ -64,16 +65,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="45dp"
-                android:layout_marginEnd="-100dp"
+                android:layout_marginEnd="-59dp"
                 android:fontFamily="@font/inter_bold"
                 android:lineSpacingExtra="4dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing. "
+                android:text="@string/home_welcome_text"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@id/cardView"
                 app:layout_constraintEnd_toStartOf="@id/appIcon"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/HelloName" />
+                app:layout_constraintTop_toBottomOf="@id/HelloName"
+                app:layout_constraintVertical_bias="0.473" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView"
