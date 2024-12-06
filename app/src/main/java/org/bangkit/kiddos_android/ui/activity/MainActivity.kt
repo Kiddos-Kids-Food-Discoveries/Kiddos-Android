@@ -1,6 +1,7 @@
 package org.bangkit.kiddos_android.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -26,9 +27,18 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home,
+                R.id.navigation_history,
+                R.id.navigation_scan,
+                R.id.navigation_profile
             )
         )
         navView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            Log.d(
+                "MainActivity",
+                "Navigated to ${destination.label}"
+            )
+        }
     }
 }

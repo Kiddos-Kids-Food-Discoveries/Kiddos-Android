@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteOff"
     android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.fragment.HomeFragment">
 
@@ -16,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:background="@drawable/kiddos_backdrop">
 
@@ -27,24 +26,48 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Hello, Tzuyu"
+                android:text="Hello, "
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintRight_toLeftOf="@id/profileImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ProgressBar
+                android:id="@+id/progressBarUser"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="30dp"
+                android:visibility="visible"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@color/white"
+                app:layout_constraintRight_toLeftOf="@id/profileImage"
+                app:layout_constraintStart_toEndOf="@id/HelloName"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profileImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/profile_image_border"
                 android:contentDescription="profile image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Circle">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/app_name" />
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -55,7 +78,7 @@
                 android:layout_marginBottom="-35dp"
                 android:background="@drawable/kiddos_icon_half"
                 android:contentDescription="profile image"
-                app:layout_constraintBottom_toTopOf="@id/cardView"
+                app:layout_constraintBottom_toTopOf="@id/cardViewMain"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
@@ -71,7 +94,7 @@
                 android:text="@string/home_welcome_text"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@id/cardView"
+                app:layout_constraintBottom_toTopOf="@id/cardViewMain"
                 app:layout_constraintEnd_toStartOf="@id/appIcon"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +102,7 @@
                 app:layout_constraintVertical_bias="0.473" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView"
+                android:id="@+id/cardViewMain"
                 style="@style/RoundedTopMaterialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +124,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/financeInfoCard"
+                            android:id="@+id/scanCardView"
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
                             android:layout_marginStart="10dp"
@@ -190,28 +213,35 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="25dp">
 
+
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Berita Terbaik"
+                            android:text="Artikel Terbaik"
                             android:layout_marginStart="2dp"
                             android:fontFamily="@font/inter_extrabold"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp"/>
 
+                        <ProgressBar
+                            android:id="@+id/progressBarArticle"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="69dp"
+                            android:layout_height="63dp"
+                            android:visibility="gone"
+                            android:layout_gravity="center_horizontal"/>
+
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/news_recycler"
+                            android:id="@+id/recyclerViewArticles"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:contentDescription="berita makanan"
+                            android:contentDescription="artikel makanan"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/foodNameDescription"
-                            tools:listitem="@layout/item_news"/>
+                            tools:listitem="@layout/item_article" />
                     </LinearLayout>
                 </LinearLayout>
 

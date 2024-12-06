@@ -4,46 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="?attr/actionBarSize"
     android:background="@color/whiteOff"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.fragment.ProfileFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/kiddos_backdrop">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profileImage"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginVertical="70dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="68dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/profile_image_border"
-                android:contentDescription="profile image" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Circle">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop" />
+            </com.google.android.material.card.MaterialCardView>
+
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView"
+                android:id="@+id/cardViewMain"
+                style="@style/RoundedTopMaterialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                app:strokeColor="@color/whiteOff"
                 app:cardBackgroundColor="@color/whiteOff"
-                app:layout_constraintTop_toBottomOf="@id/profileImage"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                style="@style/RoundedTopMaterialCardView">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileImage"
+                app:strokeColor="@color/whiteOff">
 
                 <LinearLayout
                     android:id="@+id/profileLayout"
@@ -55,121 +62,122 @@
                         android:id="@+id/profileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tzuyu"
-                        android:fontFamily="@font/inter_bold"
-                        android:textSize="32sp"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="25dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Tzuyu"
                         android:textColor="@color/purpleKiddos"
-                        android:layout_marginTop="25dp" />
+                        android:textSize="32sp" />
 
                     <LinearLayout
                         android:id="@+id/buttonDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="50dp"
-                        android:layout_marginEnd="20dp">
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_person"/>
+                            android:src="@drawable/ic_person" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="20dp"
+                            android:fontFamily="@font/inter_medium"
                             android:text="Detail Akun"
-                            android:layout_marginStart="20dp"
-                            android:fontFamily="@font/inter_medium"
                             android:textColor="@color/purpleKiddos"
-                            android:textSize="20sp"
-                            android:layout_gravity="center_vertical"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginStart="25dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="#E5E5E5"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_marginBottom="20dp"
+                        android:background="#E5E5E5" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginStart="30dp"
-                        android:layout_marginEnd="20dp">
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_setting"/>
+                            android:src="@drawable/ic_setting" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="20dp"
+                            android:fontFamily="@font/inter_medium"
                             android:text="Pengaturan"
-                            android:layout_marginStart="20dp"
-                            android:fontFamily="@font/inter_medium"
                             android:textColor="@color/purpleKiddos"
-                            android:textSize="20sp"
-                            android:layout_gravity="center_vertical"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginStart="25dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="#E5E5E5"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_marginBottom="20dp"
+                        android:background="#E5E5E5" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_marginStart="30dp"
-                        android:layout_marginEnd="20dp">
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_message"/>
+                            android:src="@drawable/ic_message" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Hubungi Kami"
+                            android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
                             android:fontFamily="@font/inter_medium"
+                            android:text="Hubungi Kami"
                             android:textColor="@color/purpleKiddos"
-                            android:textSize="20sp"
-                            android:layout_gravity="center_vertical"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center_horizontal"
                         android:layout_marginStart="25dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="#E5E5E5"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_marginBottom="20dp"
+                        android:background="#E5E5E5" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/action_logout"
+                        style="@style/OrangeButton"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:layout_marginEnd="30dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="70dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/button_orange"
                         android:fontFamily="@font/inter_extrabold"
@@ -177,8 +185,7 @@
                         android:text="Log Out"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
-                        style="@style/OrangeButton"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

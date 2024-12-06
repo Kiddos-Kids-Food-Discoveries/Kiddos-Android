@@ -20,7 +20,7 @@
             android:background="@color/whiteOff">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView"
+                android:id="@+id/cardViewMain"
                 style="@style/RoundedBottomMaterialCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardView">
+                app:layout_constraintTop_toBottomOf="@id/cardViewMain">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/foodNameDescription"

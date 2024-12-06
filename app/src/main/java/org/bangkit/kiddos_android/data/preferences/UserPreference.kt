@@ -15,6 +15,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     private val TOKEN_KEY = stringPreferencesKey("user_token")
     private val NAME_KEY = stringPreferencesKey("user_name")
     private val EMAIL_KEY = stringPreferencesKey("user_email")
+    private val USER_ID_KEY = stringPreferencesKey("user_id")
 
     fun getToken(): Flow<String> = dataStore.data.map { preferences ->
         preferences[TOKEN_KEY] ?: ""
@@ -35,11 +36,22 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         preferences[EMAIL_KEY] ?: ""
     }
 
-    suspend fun saveUserInfo(name: String, email: String) {
+    fun getUserId(): Flow<String> = dataStore.data.map { preferences -> // Added getUserId function
+        preferences[USER_ID_KEY] ?: ""
+    }
+
+    suspend fun saveName(name: String) {
         dataStore.edit { preferences ->
             preferences[NAME_KEY] = name
+            Log.d("UserPreferences", "Saving user info: Name - $name")
+        }
+    }
+
+    suspend fun saveUserInfo(email: String, userId: String) {
+        dataStore.edit { preferences ->
             preferences[EMAIL_KEY] = email
-            Log.d("UserPreferences", "Saving user info: Name - $name, Email - $email")
+            preferences[USER_ID_KEY] = userId
+            Log.d("UserPreferences", "Saving user info: Email - $email, User ID - $userId")
         }
     }
 

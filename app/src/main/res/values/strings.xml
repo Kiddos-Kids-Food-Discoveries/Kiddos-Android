@@ -35,4 +35,5 @@
     <string name="name_hint_signup">Name</string>
     <string name="email_hint_signup">Email</string>
     <string name="password_hint_signup">Password</string>
+    <string name="guest">Guest</string>
 </resources>

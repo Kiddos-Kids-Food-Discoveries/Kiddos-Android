@@ -6,138 +6,169 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteOff"
+    android:padding="20dp"
     tools:context=".ui.activity.AccountDetailActivity">
 
-    <TextView
-        android:id="@+id/tvTopBarTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Detail Akun"
-        android:textColor="@color/purpleKiddos"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:contentDescription="Back"
-        android:src="@drawable/ic_back_purple"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="70dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/profile_image_border"
-            android:contentDescription="profile image"
-            app:srcCompat="@drawable/fruit_loops_placeholder"
-            app:strokeColor="@color/purpleKiddos" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="Nama"
-            android:textColor="@color/purpleKiddos"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/editName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/edit_text_background"
-            android:hint="Nama"
-            android:paddingStart="10dp" />
-
-        <TextView
-            android:id="@+id/tvEmailTitle"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/inter_medium"
-            android:text="Email"
-            android:textColor="@color/purpleKiddos"
-            android:textSize="17sp" />
+            android:background="@color/whiteOff">
 
-        <EditText
-            android:id="@+id/editEmail"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/edit_text_background"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:hint="Email"
-            android:paddingStart="10dp" />
+            <TextView
+                android:id="@+id/tvTopBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Detail Akun"
+                android:textColor="@color/purpleKiddos"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back_purple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/galleryButton"
-        android:layout_width="169dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_orange"
-        android:fontFamily="@font/inter_bold"
-        android:text="Simpan"
-        app:backgroundTint="@color/orangePill"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <LinearLayout
+                android:id="@+id/userInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/changePassButton"
-        android:layout_width="169dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_orange"
-        android:fontFamily="@font/inter_bold"
-        android:text="Ubah Password"
-        app:backgroundTint="@color/orangePill"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toLeftOf="parent" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/profileImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="90dp"
+                    android:layout_marginBottom="50dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Circle">
 
-    <ProgressBar
-        android:id="@+id/progressBarLoading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="69dp"
-        android:layout_height="63dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone" />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/userImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerCrop" />
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Nama"
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Nama"
+                    android:paddingStart="10dp" />
+
+                <TextView
+                    android:id="@+id/tvEmailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Email"
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="17sp" />
+
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/edit_text_background"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:hint="Email"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/gray"
+                    android:textColorHint="@color/gray" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveButton"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="70dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/button_orange"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Simpan"
+                android:textSize="20sp"
+                app:backgroundTint="@color/orangePill"
+                app:layout_constraintTop_toBottomOf="@id/userInfoLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/changePassButton"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/changePassButton"
+                android:layout_width="0dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="70dp"
+                android:background="@drawable/button_orange"
+                android:fontFamily="@font/inter_extrabold"
+                android:text="Ubah Password"
+                android:textSize="20sp"
+                app:backgroundTint="@color/orangePill"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@id/saveButton" />
+
+            <ProgressBar
+                android:id="@+id/progressBarLoading"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="69dp"
+                android:layout_height="63dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

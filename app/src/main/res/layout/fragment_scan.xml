@@ -5,36 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingBottom="?attr/actionBarSize"
     android:configChanges="orientation|keyboardHidden|screenSize"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.fragment.ScanFragment">
+
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/scan_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
         android:fontFamily="@font/inter_bold"
-        android:textColor="@color/purpleKiddos"
         android:text="Scan Makananmu"
+        android:textAlignment="center"
+        android:textColor="@color/purpleKiddos"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/previewImageView"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profileImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="40dp"
-        android:contentDescription="scan image"
+        app:cardCornerRadius="40dp"
         app:layout_constraintBottom_toTopOf="@id/galleryButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scan_text"
-        app:srcCompat="@drawable/fruit_loops_placeholder" />
+        app:layout_constraintTop_toBottomOf="@id/scan_text">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/previewImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="scan image"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/fruit_loops_placeholder" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/galleryButton"
@@ -46,32 +56,32 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_red"
         android:fontFamily="@font/inter_extrabold"
+        android:letterSpacing="0"
         android:text="Ambil Foto"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:letterSpacing="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/analyzeButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/analyzeButton"
+        style="@style/OrangeButton"
         android:layout_width="0dp"
         android:layout_height="86dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_orange"
+        android:fontFamily="@font/inter_extrabold"
+        android:letterSpacing="0"
         android:text="Scan"
-        android:textSize="20sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:letterSpacing="0"
-        android:fontFamily="@font/inter_extrabold"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/galleryButton"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/OrangeButton"/>
+        app:layout_constraintStart_toEndOf="@id/galleryButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

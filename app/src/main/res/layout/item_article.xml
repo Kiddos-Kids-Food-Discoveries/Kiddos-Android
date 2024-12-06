@@ -6,18 +6,18 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_news"
+        android:id="@+id/card_articles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:strokeColor="@color/green"
-        app:strokeWidth="3dp"
-        app:cardCornerRadius="16dp"
         android:paddingBottom="16dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/purpleKiddos"
+        app:strokeWidth="3dp"
         tools:ignore="VisualLintBounds">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,20 +26,20 @@
             android:paddingBottom="16dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/image_news_card"
+                android:id="@+id/image_articles_card"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
+                app:layout_constraintBottom_toTopOf="@id/tvPublishAt"
                 app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvPublishAt"
                 tools:ignore="VisualLintBounds">
 
                 <ImageView
-                    android:id="@+id/ivNewsImage"
+                    android:id="@+id/ivarticlesImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -54,82 +54,57 @@
                 android:id="@+id/tvPublishAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/inter_medium"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_news_card"
-                tools:ignore="TextContrastCheck,VisualLintBounds" />
-
-            <TextView
-                android:id="@+id/tvNewsName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:textAlignment="center"
+                android:layout_marginTop="7dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="15sp"
+                android:fontFamily="@font/inter_regular"
+                android:textAlignment="center"
+                android:textColor="@color/purpleKiddos"
+                android:text="Date"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_news_card"
+                app:layout_constraintTop_toBottomOf="@id/image_articles_card"
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:id="@+id/tvNewsTitle"
+                android:id="@+id/tvarticlesTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
                 android:ellipsize="end"
+                android:text="title"
+                android:fontFamily="@font/inter_extrabold"
                 android:maxLines="2"
                 android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:textColor="@color/purpleKiddos"
+                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPublishAt"
                 tools:ignore="TextContrastCheck,VisualLintBounds" />
 
-            <TextView
-                android:id="@+id/tvNewsAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/inter_medium"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNewsTitle"
-                tools:ignore="TextContrastCheck,VisualLintBounds" />
-
 
             <TextView
-                android:id="@+id/tvNewsDescription"
+                android:id="@+id/tvarticlesDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="2dp"
                 android:ellipsize="end"
-                android:maxLines="3"
+                android:text="description"
                 android:fontFamily="@font/inter_medium"
-                android:textColor="@color/black"
+                android:maxLines="2"
+                android:textColor="@color/purpleKiddos"
                 android:textSize="12sp"
-                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvNewsAuthor"
+                app:layout_constraintTop_toBottomOf="@id/tvarticlesTitle"
                 tools:ignore="TextContrastCheck,VisualLintBounds" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:background="@color/white"
+        app:itemActiveIndicatorStyle="@color/white"
         app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"

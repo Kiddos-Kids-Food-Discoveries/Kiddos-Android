@@ -15,7 +15,10 @@ class AuthRepository private constructor(
     suspend fun login(email: String, password: String): LoginResponse {
         val response = apiService.login(email, password)
         userPreference.saveToken(response.token)
-        userPreference.saveUserInfo(response.name, email)
+        val userId = response.userId
+        userPreference.saveUserInfo(response.email, userId)
+        userPreference.saveName(response.name)
+
         return response
     }
 

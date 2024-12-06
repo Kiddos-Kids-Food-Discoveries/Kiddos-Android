@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,10 +8,16 @@
         android:id="@+id/navigation_home"
         android:name="org.bangkit.kiddos_android.ui.fragment.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_scan"
+            app:destination="@id/navigation_scan"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_history"
         android:name="org.bangkit.kiddos_android.ui.fragment.HistoriFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_histori" />
@@ -21,10 +26,16 @@
         android:id="@+id/navigation_scan"
         android:name="org.bangkit.kiddos_android.ui.fragment.ScanFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan">
+        <action
+            android:id="@+id/action_navigation_scan_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_scan"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:name="org.bangkit.kiddos_android.ui.fragment.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_profile" />
