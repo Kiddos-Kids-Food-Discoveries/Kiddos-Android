@@ -3,12 +3,15 @@ package org.bangkit.kiddos_android.data.remote.api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.bangkit.kiddos_android.data.remote.response.ArticleResponse
+import org.bangkit.kiddos_android.data.remote.response.HistoryResponse
 import org.bangkit.kiddos_android.data.remote.response.LoginResponse
+import org.bangkit.kiddos_android.data.remote.response.PredictResponse
 import org.bangkit.kiddos_android.data.remote.response.RegisterResponse
 import org.bangkit.kiddos_android.data.remote.response.ResetPasswordResponse
 import org.bangkit.kiddos_android.data.remote.response.UpdateUserResponse
 import org.bangkit.kiddos_android.domain.model.User
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -42,10 +45,27 @@ interface ApiService {
         @Path("iduser") userId: String
     ): Map<String, User>
 
+    @Multipart
+    @POST("predicthisto")
+    suspend fun predict(
+        @Part file: MultipartBody.Part,
+        @Part("user_id") userId: RequestBody
+    ): Response<PredictResponse>
+
 
     @GET("articles")
     suspend fun getArticles(
     ): Response<ArticleResponse>
+
+    @GET("history/{user_id}")
+    suspend fun getHistory(
+        @Path("user_id") userId: String
+    ): Response<HistoryResponse>
+
+    @DELETE("history/{history_id}")
+    suspend fun deleteHistory(
+        @Path("history_id") historyId: String
+    ): Response<Any>
 
     @FormUrlEncoded
     @POST("forgotPassword")
@@ -62,3 +82,4 @@ interface ApiService {
         @Part("userId") userIdField: RequestBody
     ): Response<UpdateUserResponse>
 }
+

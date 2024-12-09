@@ -2,15 +2,19 @@ package org.bangkit.kiddos_android.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.launch
 import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.data.preferences.UserPreference
@@ -50,6 +54,9 @@ class ProfileFragment : Fragment() {
         }
 
         setupListeners()
+
+
+
         return binding.root
     }
 
@@ -98,15 +105,24 @@ class ProfileFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
             user?.let {
+                // Tambahkan log untuk mengecek nama dan URL gambar
+                Log.d("HomeFragment", "User Name: ${it.name}")
+                Log.d("HomeFragment", "User Picture URL: ${it.userPicture}")
+
                 binding.profileName.text = it.name
                 Glide.with(this)
-                    .load(it.userPicture)
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Add a timestamp to invalidate cache
+                    .skipMemoryCache(true) // Skip memory cache
+                    .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip disk cache
                     .into(binding.userImage)
+
             } ?: run {
+                Log.d("HomeFragment", "User is null or guest user")
                 binding.profileName.text = getString(R.string.guest)
             }
         }
     }
+
 
     private fun fetchUserInfo() {
         lifecycleScope.launch {

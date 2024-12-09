@@ -18,21 +18,33 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="org.bangkit.kiddos_android.ui.fragment.HistoriFragment"
+        android:name="org.bangkit.kiddos_android.ui.fragment.HistoryFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_histori" />
+        tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_scan"
         android:name="org.bangkit.kiddos_android.ui.fragment.ScanFragment"
-        android:label="@string/title_home"
+        android:label="scan"
         tools:layout="@layout/fragment_scan">
         <action
             android:id="@+id/action_navigation_scan_to_navigation_home"
             app:destination="@id/navigation_home"
             app:popUpTo="@id/navigation_scan"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_scanFragment_to_scanResultActivity"
+            app:destination="@id/scanResultActivity" />
+
     </fragment>
+
+    <activity
+        android:id="@+id/scanResultActivity"
+        android:name="org.bangkit.kiddos_android.ui.activity.ScanResultActivity"
+        android:label="Scan Result Activity"
+        tools:layout="@layout/activity_scan_result">
+    </activity>
+
 
     <fragment
         android:id="@+id/navigation_profile"

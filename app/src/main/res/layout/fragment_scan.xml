@@ -22,6 +22,7 @@
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profileImage"
         android:layout_width="0dp"
@@ -46,6 +47,19 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="69dp"
+        android:layout_height="63dp"
+        android:visibility="gone"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/galleryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/galleryButton"
         style="@style/RedButton"
@@ -62,11 +76,11 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/analyzeButton"
+        app:layout_constraintEnd_toStartOf="@id/buttonPredict"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/analyzeButton"
+        android:id="@+id/buttonPredict"
         style="@style/OrangeButton"
         android:layout_width="0dp"
         android:layout_height="86dp"

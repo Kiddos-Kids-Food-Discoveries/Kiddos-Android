@@ -37,8 +37,10 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun checkSession() {
-        viewModel.token.observe(this) { token ->
-            if (token.isNotEmpty()) navigateToHome()
+        viewModel.token.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { token ->
+                if (token.isNotEmpty()) navigateToHome()
+            }
         }
     }
 

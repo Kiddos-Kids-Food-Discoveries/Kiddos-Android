@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import org.bangkit.kiddos_android.data.repository.ArticleRepository
@@ -22,10 +23,19 @@ class HomeViewModel(
         viewModelScope.launch {
             try {
                 val userResponse = userRepository.getUser(userId)
-                _user.value = userResponse[userId]
+
+                // Log untuk melihat data yang diterima
+                Log.d("HomeViewModel", "fetchUser response: $userResponse")
+
+                // Misalkan userResponse adalah Map, ambil data dengan key userId
+                val fetchedUser = userResponse[userId]
+                _user.value = fetchedUser
+
+                // Log untuk memastikan user yang diambil
+                Log.d("HomeViewModel", "Fetched user: $fetchedUser")
             } catch (e: Exception) {
                 _user.value = null
-                // Handle error
+                Log.e("HomeViewModel", "Error fetching user", e)
             }
         }
     }
@@ -34,10 +44,14 @@ class HomeViewModel(
         viewModelScope.launch {
             try {
                 val articleResponse = articleRepository.getArticles()
+
+                // Log untuk melihat data artikel yang diterima
+                Log.d("HomeViewModel", "fetchArticles response: $articleResponse")
+
                 _articles.value = articleResponse
             } catch (e: Exception) {
                 _articles.value = emptyList()
-                // Handle error
+                Log.e("HomeViewModel", "Error fetching articles", e)
             }
         }
     }

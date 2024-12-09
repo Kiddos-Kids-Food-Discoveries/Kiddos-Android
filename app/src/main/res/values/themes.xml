@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.KiddosAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="actionBarSize">65dp</item>
+        <item name="colorPrimary">@color/purpleKiddos</item>
+        <item name="android:windowBackground">@color/whiteOff</item>
     </style>
 
     <style name="Theme.KiddosAndroid" parent="Base.Theme.KiddosAndroid" />

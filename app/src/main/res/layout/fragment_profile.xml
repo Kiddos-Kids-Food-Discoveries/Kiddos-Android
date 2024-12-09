@@ -35,7 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/app_name"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/placeholder_profile"/>
             </com.google.android.material.card.MaterialCardView>
 
 
@@ -65,7 +66,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="25dp"
                         android:fontFamily="@font/inter_bold"
-                        android:text="Tzuyu"
+                        android:text="Guest"
                         android:textColor="@color/purpleKiddos"
                         android:textSize="32sp" />
 

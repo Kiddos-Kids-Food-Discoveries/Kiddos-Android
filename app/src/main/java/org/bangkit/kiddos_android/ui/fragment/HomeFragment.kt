@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
@@ -49,25 +51,32 @@ class HomeFragment : Fragment() {
         userPreference = UserPreference.getInstance(requireContext())
 
         helloNameTextView = binding.HelloName
-        userImageView = binding.userImage  // Initialize userImageView
+        userImageView = binding.userImage
 
-        // Set up RecyclerView
         setupRecyclerView()
 
-        // Observe LiveData
         observeViewModel()
 
-        // Fetch data if not already loaded
+        loadUserName()
+
         if (homeViewModel.user.value == null || homeViewModel.articles.value.isNullOrEmpty()) {
             fetchUserInfo()
             fetchArticles()
         }
 
-        // Set click listener for scanCardView
         binding.cardViewMain.setOnClickListener {
             Log.d("HomeFragment", "Navigating to ScanFragment")
             findNavController().navigate(R.id.action_navigation_home_to_navigation_scan)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()  // This will close the app
+                }
+            }
+        )
 
         return binding.root
     }
@@ -85,15 +94,18 @@ class HomeFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
             user?.let {
-                helloNameTextView.text = "Hello, ${it.name}"
-                // Load user image using Glide
+
+                lifecycleScope.launch {
+                    userPreference.saveUserPicture(it.userPicture)
+                }
+
+                Log.d("HomeFragment", "User Picture URL: ${it.userPicture}")
                 Glide.with(this)
-                    .load(it.userPicture)
-                    .into(userImageView)
-            } ?: run {
-                helloNameTextView.text = "Hello, Guest"
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Add a timestamp to invalidate cache
+                    .skipMemoryCache(true) // Skip memory cache
+                    .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip disk cache
+                    .into(binding.userImage)
             }
-            binding.progressBarUser.visibility = View.GONE  // Hide progress bar
         }
 
         homeViewModel.articles.observe(viewLifecycleOwner) { articles ->
@@ -105,24 +117,39 @@ class HomeFragment : Fragment() {
         }
     }
 
+
+    private fun loadUserName() {
+        lifecycleScope.launch {
+            userPreference.getName().collect { userName ->
+                helloNameTextView.text = if (userName.isNotEmpty()) {
+                    "Hello, $userName"
+                } else {
+                    "Hello, Guest"
+                }
+            }
+        }
+    }
+
+
     private fun fetchArticles() {
         binding.progressBarArticle.visibility = View.VISIBLE  // Show progress bar
         homeViewModel.fetchArticles()
     }
 
     private fun fetchUserInfo() {
-        binding.progressBarUser.visibility = View.VISIBLE  // Show progress bar
         lifecycleScope.launch {
             userPreference.getUserId().collect { userId ->
-                if (userId.isNotEmpty()) {
-                    homeViewModel.fetchUser(userId)
-                } else {
-                    helloNameTextView.text = "Hello, Guest"
-                    binding.progressBarUser.visibility = View.GONE  // Hide progress bar
+                if (_binding != null) {
+                    if (userId.isNotEmpty()) {
+                        homeViewModel.fetchUser(userId)
+                    } else {
+                        helloNameTextView.text = "Hello, Guest"
+                    }
                 }
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

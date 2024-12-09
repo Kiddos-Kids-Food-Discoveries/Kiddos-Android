@@ -6,44 +6,40 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import org.bangkit.kiddos_android.data.remote.response.PredictResponse
-import org.bangkit.kiddos_android.databinding.ActivityScanResultBinding
+import org.bangkit.kiddos_android.databinding.ActivityHistoryDetailBinding
+import org.bangkit.kiddos_android.domain.model.HistoryItem
 import org.bangkit.kiddos_android.ui.adapter.NutritionAdapter
 import java.util.*
 
-class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+class HistoryDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
-    private lateinit var binding: ActivityScanResultBinding
+    private lateinit var binding: ActivityHistoryDetailBinding
     private lateinit var nutritionAdapter: NutritionAdapter
     private var textToSpeech: TextToSpeech? = null
     private var isTranslated = false  // Flag to keep track of translation state
-
     private val translationMap = mapOf(
         "tofu" to "tahu",
         "grape" to "anggur"
         // Add more translations as needed
     )
 
-    private var originalFoodName: String? = null  // Store the original food name
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityScanResultBinding.inflate(layoutInflater)
+        binding = ActivityHistoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         textToSpeech = TextToSpeech(this, this)  // Initialize TextToSpeech
 
-        val predictResponse = intent.getParcelableExtra<PredictResponse>("PREDICT_RESPONSE")
+        val historyItem = intent.getParcelableExtra<HistoryItem>("HISTORY_ITEM")
 
-        predictResponse?.let { response ->
-            originalFoodName = response.data?.prediction?.foodInfo?.nama
-            binding.foodNameTitle.text = originalFoodName
-            binding.foodNameDescription.text = originalFoodName
-            binding.foodDescription.text = response.data?.prediction?.foodInfo?.deskripsi
+        historyItem?.let { item ->
+            binding.foodNameTitle.text = item.prediction.foodInfo.nama
+            binding.foodNameDescription.text = item.prediction.foodInfo.nama
+            binding.foodDescription.text = item.prediction.foodInfo.deskripsi
 
-            Glide.with(this).load(response.data?.inputImage).into(binding.imageView)
+            Glide.with(this).load(item.inputImage).into(binding.imageView)
 
-            response.data?.prediction?.foodInfo?.nutrition?.let { nutrition ->
+            item.prediction.foodInfo.nutrition.let { nutrition ->
                 val nutritionList = listOf(
                     "Kalori" to nutrition.kalori.toString(),
                     "Protein" to nutrition.protein.toString(),
@@ -53,44 +49,33 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 )
                 nutritionAdapter = NutritionAdapter(nutritionList)
                 binding.foodNutritionRecycler.apply {
-                    layoutManager = LinearLayoutManager(this@ScanResultActivity, LinearLayoutManager.HORIZONTAL, false)
+                    layoutManager = LinearLayoutManager(this@HistoryDetailActivity, LinearLayoutManager.HORIZONTAL, false)
                     adapter = nutritionAdapter
                 }
             }
 
             binding.btnTranslation.setOnClickListener {
-                toggleTranslation()
+                toggleTranslation(item.prediction.foodInfo.nama)
             }
 
             binding.btnTextToSpeech.setOnClickListener {
-                speakOut()
+                speakOut(item.prediction.foodInfo.nama)
             }
         }
 
-        binding.galleryButton.setOnClickListener {
-            // Handle Rescan button click
-            finish()
-        }
-
-        binding.analyzeButton.setOnClickListener {
-            // Handle Home button click
-            finish()
-        }
-
         binding.imageButton.setOnClickListener {
-            // Handle back button click
             finish()
         }
     }
 
-    private fun toggleTranslation() {
+    private fun toggleTranslation(foodName: String) {
         if (isTranslated) {
             // If currently translated, switch back to English
-            binding.foodNameTitle.text = originalFoodName
-            binding.foodNameDescription.text = originalFoodName
+            binding.foodNameTitle.text = foodName
+            binding.foodNameDescription.text = foodName
         } else {
             // If currently in English, translate to Indonesian
-            val translatedName = translateFoodName(originalFoodName)
+            val translatedName = translateFoodName(foodName)
             binding.foodNameTitle.text = translatedName
             binding.foodNameDescription.text = translatedName
         }
@@ -101,8 +86,8 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         return translationMap[foodName] ?: foodName ?: "Unknown"
     }
 
-    private fun speakOut() {
-        val textToSpeak = if (isTranslated) binding.foodNameTitle.text.toString() else originalFoodName
+    private fun speakOut(foodName: String?) {
+        val textToSpeak = if (isTranslated) binding.foodNameTitle.text.toString() else foodName
         val locale = if (isTranslated) Locale.US else Locale("id", "ID")
         textToSpeech?.language = locale
         textToSpeech?.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "")

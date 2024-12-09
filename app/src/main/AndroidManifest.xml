@@ -15,7 +15,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -26,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KiddosAndroid"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activity.HistoryDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:exported="false" />
