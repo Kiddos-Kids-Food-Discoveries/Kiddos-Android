@@ -24,6 +24,7 @@ import org.bangkit.kiddos_android.data.repository.UserRepository
 import org.bangkit.kiddos_android.databinding.FragmentProfileBinding
 import org.bangkit.kiddos_android.ui.activity.AccountDetailActivity
 import org.bangkit.kiddos_android.ui.activity.LoginActivity
+import org.bangkit.kiddos_android.ui.activity.SettingActivity
 import org.bangkit.kiddos_android.ui.viewmodel.HomeViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.factory.HomeViewModelFactory
 
@@ -40,22 +41,26 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         userPreference = UserPreference.getInstance(requireContext())
 
-        // Observe LiveData
         observeViewModel()
 
-        // Fetch data if not already loaded
+        loadUserName()
+
         if (homeViewModel.user.value == null) {
             fetchUserInfo()
         }
 
         setupListeners()
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.navigation_home)
+            }
+        })
 
         return binding.root
     }
@@ -65,9 +70,17 @@ class ProfileFragment : Fragment() {
             showLogoutConfirmationDialog()
         }
 
+        binding.buttonSetting.setOnClickListener {
+            navigateToSettingActivity()
+        }
         binding.buttonDetail.setOnClickListener {
             navigateToAccountDetailActivity()
         }
+    }
+
+    private fun navigateToSettingActivity() {
+        val intent = Intent(requireContext(), SettingActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToAccountDetailActivity() {
@@ -80,7 +93,7 @@ class ProfileFragment : Fragment() {
             .setMessage(getString(R.string.logout_confirmation_message))
             .setPositiveButton(getString(R.string.logout_confirmation_yes)) { dialog, _ ->
                 lifecycleScope.launch {
-                    userPreference.clearToken() // Clear user token to log out
+                    userPreference.clearToken()
 
                     showToast(getString(R.string.logout_successful))
 
@@ -105,16 +118,15 @@ class ProfileFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
             user?.let {
-                // Tambahkan log untuk mengecek nama dan URL gambar
-                Log.d("HomeFragment", "User Name: ${it.name}")
                 Log.d("HomeFragment", "User Picture URL: ${it.userPicture}")
 
-                binding.profileName.text = it.name
                 Glide.with(this)
-                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Add a timestamp to invalidate cache
-                    .skipMemoryCache(true) // Skip memory cache
-                    .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip disk cache
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Tambahkan timestamp untuk invalidasi cache
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(R.drawable.placeholder_profile)
                     .into(binding.userImage)
+
 
             } ?: run {
                 Log.d("HomeFragment", "User is null or guest user")
@@ -135,4 +147,17 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
+    private fun loadUserName() {
+        lifecycleScope.launch {
+            userPreference.getName().collect { userName ->
+                binding.profileName.text = if (userName.isNotEmpty()) {
+                    userName
+                } else {
+                    "Guest"
+                }
+            }
+        }
+    }
+
 }

@@ -1,9 +1,10 @@
 package org.bangkit.kiddos_android.ui.activity
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,8 +16,8 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import org.bangkit.kiddos_android.R
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.bangkit.kiddos_android.data.preferences.UserPreference
 import org.bangkit.kiddos_android.data.remote.api.ApiConfig
 import org.bangkit.kiddos_android.databinding.ActivityAccountDetailBinding
@@ -36,7 +37,6 @@ class AccountDetailActivity : AppCompatActivity() {
         binding = ActivityAccountDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Hide the progress bar initially
         binding.progressBarLoading.visibility = View.GONE
 
         accountDetailViewModel = ViewModelProvider(
@@ -49,21 +49,14 @@ class AccountDetailActivity : AppCompatActivity() {
         })
 
         accountDetailViewModel.isLoading.observe(this, Observer { isLoading ->
-            Log.d("AccountDetailActivity", "Loading state changed: $isLoading")
-            // Show or hide the loading indicator based on isLoading
             if (isLoading) {
                 binding.progressBarLoading.visibility = View.VISIBLE
-                Log.d("AccountDetailActivity", "Progress bar shown")
             } else {
                 binding.progressBarLoading.visibility = View.GONE
-                Log.d("AccountDetailActivity", "Progress bar hidden")
             }
         })
 
         accountDetailViewModel.fetchUserData()
-
-        // Load user image from UserPreference
-        loadUserImage()
 
         binding.btnBack.setOnClickListener {
             onBackPressed()
@@ -73,8 +66,9 @@ class AccountDetailActivity : AppCompatActivity() {
             val intent = Intent(
                 Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-            intent.type = "image/*"
+            ).apply {
+                setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            }
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
@@ -89,14 +83,14 @@ class AccountDetailActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 this@AccountDetailActivity,
-                                "User ID or image not found",
+                                "Gambar tidak ditemukan",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
                 }
             } else {
-                Toast.makeText(this, "Name is required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nama wajib diisi", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -105,7 +99,7 @@ class AccountDetailActivity : AppCompatActivity() {
             if (email.isNotEmpty()) {
                 showConfirmationDialog(email)
             } else {
-                Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Email wajib diisi", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -116,46 +110,21 @@ class AccountDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadUserImage() {
-        lifecycleScope.launch {
-            UserPreference.getInstance(applicationContext).getUserPicture().collect { pictureUrl ->
-                Glide.with(this@AccountDetailActivity)
-                    .load(pictureUrl)
-                    .into(binding.userImage)
-            }
-        }
-    }
-
     private var selectedImageUri: Uri? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            // Ensure selected image URI is valid
             selectedImageUri = data.data
 
             selectedImageUri?.let { uri ->
-                Log.d("AccountDetailActivity", "Selected URI: $uri")
-
-                // Clear old cache before setting the new image
                 clearOldCache()
-
-                // Set the new image using Glide
                 Glide.with(this@AccountDetailActivity)
                     .load(uri)
                     .into(binding.userImage)
-
-                // Also, store the image file if necessary
-                val selectedImageFile = getImageFileFromUri(uri)
-                Log.d(
-                    "AccountDetailActivity",
-                    "New selected image path: ${selectedImageFile.absolutePath}"
-                )
+                getImageFileFromUri(uri)
             }
-                ?: run {
-                    Log.e("AccountDetailActivity", "Selected URI is null")
-                }
         }
     }
 
@@ -165,17 +134,19 @@ class AccountDetailActivity : AppCompatActivity() {
 
         uri?.let {
             val inputStream = contentResolver.openInputStream(it)
-            val outputStream = FileOutputStream(file)
+            val originalBitmap = BitmapFactory.decodeStream(inputStream)
 
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
+            val outputStream = FileOutputStream(file)
+            originalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream) // Menyimpan gambar terkompres dengan kualitas 80%
+
             outputStream.flush()
             outputStream.close()
+            inputStream?.close()
         }
 
-        Log.d("AccountDetailActivity", "New file created: ${file.absolutePath}")
         return file
     }
+
 
 
     private fun clearOldCache() {
@@ -183,31 +154,27 @@ class AccountDetailActivity : AppCompatActivity() {
         if (cacheDir.isDirectory) {
             cacheDir.listFiles()?.forEach { file ->
                 if (file.isFile) {
-                    file.delete() // Hapus file dalam cache
+                    file.delete()
                 }
             }
         }
     }
 
     private fun updateUser(newName: String, userId: String, userPictureFile: File) {
-        Log.d("AccountDetailActivity", "Start updating user, showing progress bar.")
         binding.progressBarLoading.visibility = View.VISIBLE
 
         val userPictureRequestBody =
-            RequestBody.create("image/jpeg".toMediaTypeOrNull(), userPictureFile)
+            userPictureFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val userPicturePart = MultipartBody.Part.createFormData(
             "user_picture",
             userPictureFile.name,
             userPictureRequestBody
         )
-        val nameRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), newName)
-        val userIdRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), userId)
+        val nameRequestBody = newName.toRequestBody("text/plain".toMediaTypeOrNull())
+        val userIdRequestBody = userId.toRequestBody("text/plain".toMediaTypeOrNull())
 
         lifecycleScope.launch {
             try {
-                Log.d("AccountDetailActivity", "Sending API request to update user")
-                Log.d("AccountDetailActivity", "Image file: ${userPictureFile.absolutePath}")
-                Log.d("AccountDetailActivity", "Image file size: ${userPictureFile.length()}")
                 val response = ApiConfig.getApiService()
                     .updateUser(userId, userPicturePart, nameRequestBody, userIdRequestBody)
 
@@ -216,10 +183,9 @@ class AccountDetailActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val updateUserResponse = response.body()
                     if (updateUserResponse?.status == "success") {
-                        Log.d("AccountDetailActivity", "User updated successfully")
                         Toast.makeText(
                             this@AccountDetailActivity,
-                            updateUserResponse.message,
+                            "Update sukses, buka ulang aplikasi apabila foto profil tidak berubah.",
                             Toast.LENGTH_SHORT
                         ).show()
 
@@ -229,64 +195,51 @@ class AccountDetailActivity : AppCompatActivity() {
 
                         clearOldCache()
                     } else {
-                        Log.e(
-                            "AccountDetailActivity",
-                            "Failed to update user: ${updateUserResponse?.message}"
-                        )
                         Toast.makeText(
                             this@AccountDetailActivity,
-                            "Failed to update user: ${updateUserResponse?.message}",
+                            "Gagal memperbarui pengguna: ${updateUserResponse?.message}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
-                    Log.e(
-                        "AccountDetailActivity",
-                        "API call failed: ${response.code()} - ${response.message()}"
-                    )
                     Toast.makeText(
                         this@AccountDetailActivity,
-                        "Failed to update user",
+                        "Gagal memperbarui pengguna",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             } catch (e: Exception) {
-                Log.e("AccountDetailActivity", "Error: ${e.message}", e)
-                binding.progressBarLoading.visibility = View.GONE // Hide progress bar on error
+                binding.progressBarLoading.visibility = View.GONE
                 Toast.makeText(
                     this@AccountDetailActivity,
-                    "Error: ${e.message}",
+                    "Kesalahan: ${e.message}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
     }
 
-
     private fun showConfirmationDialog(email: String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.reset_password_confirmation_title))
-        builder.setMessage(getString(R.string.reset_password_confirmation_message, email))
-        builder.setPositiveButton(getString(R.string.reset_password_button_yes)) { dialog, _ ->
-            // Proceed with password reset
+        builder.setTitle("Konfirmasi Reset Password")
+        builder.setMessage("Apakah Anda ingin mereset password untuk email $email?")
+        builder.setPositiveButton("Ya") { dialog, _ ->
             requestPasswordReset(email)
             dialog.dismiss()
         }
-        builder.setNegativeButton(getString(R.string.reset_password_button_no)) { dialog, _ ->
-            dialog.dismiss() // Dismiss dialog
+        builder.setNegativeButton("Tidak") { dialog, _ ->
+            dialog.dismiss()
         }
         builder.create().show()
     }
 
     private fun requestPasswordReset(email: String) {
-        // Show progress bar when starting the reset request
         binding.progressBarLoading.visibility = View.VISIBLE
 
         lifecycleScope.launch {
             try {
                 val response = ApiConfig.getApiService().resetPassword(email)
 
-                // Hide progress bar after request is complete
                 binding.progressBarLoading.visibility = View.GONE
 
                 if (response.error == false) {
@@ -294,18 +247,17 @@ class AccountDetailActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(resetLink))
                     startActivity(intent)
                 } else {
-
                     Toast.makeText(
                         this@AccountDetailActivity,
-                        getString(R.string.failed_to_send_reset_link),
+                        "Gagal mengirim tautan reset",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             } catch (e: Exception) {
-                binding.progressBarLoading.visibility = View.GONE // Hide progress bar on error
+                binding.progressBarLoading.visibility = View.GONE
                 Toast.makeText(
                     this@AccountDetailActivity,
-                    getString(R.string.request_failed, e.message),
+                    "Kesalahan: ${e.message}",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -24,14 +24,11 @@ class HomeViewModel(
             try {
                 val userResponse = userRepository.getUser(userId)
 
-                // Log untuk melihat data yang diterima
                 Log.d("HomeViewModel", "fetchUser response: $userResponse")
 
-                // Misalkan userResponse adalah Map, ambil data dengan key userId
                 val fetchedUser = userResponse[userId]
                 _user.value = fetchedUser
 
-                // Log untuk memastikan user yang diambil
                 Log.d("HomeViewModel", "Fetched user: $fetchedUser")
             } catch (e: Exception) {
                 _user.value = null
@@ -45,7 +42,6 @@ class HomeViewModel(
             try {
                 val articleResponse = articleRepository.getArticles()
 
-                // Log untuk melihat data artikel yang diterima
                 Log.d("HomeViewModel", "fetchArticles response: $articleResponse")
 
                 _articles.value = articleResponse

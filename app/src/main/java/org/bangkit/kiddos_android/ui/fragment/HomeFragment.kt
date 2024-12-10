@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,10 +23,14 @@ import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.data.preferences.UserPreference
 import org.bangkit.kiddos_android.data.remote.api.ApiConfig
 import org.bangkit.kiddos_android.data.repository.ArticleRepository
+import org.bangkit.kiddos_android.data.repository.FoodRepository
 import org.bangkit.kiddos_android.data.repository.UserRepository
 import org.bangkit.kiddos_android.databinding.FragmentHomeBinding
+import org.bangkit.kiddos_android.ui.activity.FoodListActivity
 import org.bangkit.kiddos_android.ui.adapter.ArticlesAdapter
+import org.bangkit.kiddos_android.ui.viewmodel.FoodViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.HomeViewModel
+import org.bangkit.kiddos_android.ui.viewmodel.factory.FoodViewModelFactory
 import org.bangkit.kiddos_android.ui.viewmodel.factory.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -41,6 +47,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels {
         HomeViewModelFactory(userRepository, articleRepository)
     }
+
+    private lateinit var foodViewModel: FoodViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,16 +77,49 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_navigation_scan)
         }
 
+        binding.profileImage.setOnClickListener {
+            Log.d("HomeFragment", "Navigating to ProfileFragment")
+            findNavController().navigate(R.id.action_navigation_home_to_navigation_profile)
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    requireActivity().finish()  // This will close the app
+                    requireActivity().finish()
                 }
             }
         )
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val apiService = ApiConfig.getApiService()
+        val foodRepository = FoodRepository(apiService)
+        val viewModelFactory = FoodViewModelFactory(foodRepository)
+        foodViewModel = ViewModelProvider(this, viewModelFactory).get(FoodViewModel::class.java)
+
+        binding.cardFoodVegetable.setOnClickListener {
+            navigateToFoodListActivity("sayur")
+        }
+
+        binding.cardFoodFruit.setOnClickListener {
+            navigateToFoodListActivity("buah")
+        }
+
+        binding.cardFoodFood.setOnClickListener {
+            navigateToFoodListActivity("makanan")
+        }
+    }
+
+    private fun navigateToFoodListActivity(category: String) {
+        val intent = Intent(requireContext(), FoodListActivity::class.java).apply {
+            putExtra("CATEGORY", category)
+        }
+        startActivity(intent)
     }
 
     private fun setupRecyclerView() {
@@ -94,29 +135,29 @@ class HomeFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
             user?.let {
-
                 lifecycleScope.launch {
                     userPreference.saveUserPicture(it.userPicture)
                 }
 
                 Log.d("HomeFragment", "User Picture URL: ${it.userPicture}")
                 Glide.with(this)
-                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Add a timestamp to invalidate cache
-                    .skipMemoryCache(true) // Skip memory cache
-                    .diskCacheStrategy(DiskCacheStrategy.NONE) // Skip disk cache
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}")
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(R.drawable.placeholder_profile)
                     .into(binding.userImage)
             }
         }
 
         homeViewModel.articles.observe(viewLifecycleOwner) { articles ->
             articlesAdapter = ArticlesAdapter(articles) { article ->
-                Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT)
+                    .show()
             }
             binding.recyclerViewArticles.adapter = articlesAdapter
-            binding.progressBarArticle.visibility = View.GONE  // Hide progress bar
+            binding.progressBarArticle.visibility = View.GONE
         }
     }
-
 
     private fun loadUserName() {
         lifecycleScope.launch {
@@ -130,9 +171,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun fetchArticles() {
-        binding.progressBarArticle.visibility = View.VISIBLE  // Show progress bar
+        binding.progressBarArticle.visibility = View.VISIBLE
         homeViewModel.fetchArticles()
     }
 
@@ -143,16 +183,15 @@ class HomeFragment : Fragment() {
                     if (userId.isNotEmpty()) {
                         homeViewModel.fetchUser(userId)
                     } else {
-                        helloNameTextView.text = "Hello, Guest"
+                        helloNameTextView.text = getString(R.string.hello_guest)
                     }
                 }
             }
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null  // Clean up binding reference to avoid memory leaks
+        _binding = null
     }
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     private val EMAIL_KEY = stringPreferencesKey("user_email")
     private val USER_PICTURE_KEY = stringPreferencesKey("user_picture")
     private val USER_ID_KEY = stringPreferencesKey("user_id")
+    private val NOTIFICATION_KEY = booleanPreferencesKey("notification_enabled")
 
     fun getToken(): Flow<String> = dataStore.data.map { preferences ->
         preferences[TOKEN_KEY] ?: ""
@@ -29,10 +31,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    fun getUserPicture(): Flow<String> = dataStore.data.map { preferences ->
-        preferences[USER_PICTURE_KEY] ?: ""
-    }
-
     fun getName(): Flow<String> = dataStore.data.map { preferences ->
         preferences[NAME_KEY] ?: ""
     }
@@ -41,8 +39,12 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         preferences[EMAIL_KEY] ?: ""
     }
 
-    fun getUserId(): Flow<String> = dataStore.data.map { preferences -> // Added getUserId function
+    fun getUserId(): Flow<String> = dataStore.data.map { preferences ->
         preferences[USER_ID_KEY] ?: ""
+    }
+
+    fun isNotificationEnabled(): Flow<Boolean> = dataStore.data.map { preferences ->
+        preferences[NOTIFICATION_KEY] ?: false
     }
 
     suspend fun saveUserPicture(userPicture: String) {
@@ -63,6 +65,13 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[EMAIL_KEY] = email
             preferences[USER_ID_KEY] = userId
             Log.d("UserPreferences", "Saving user info: Email - $email, User ID - $userId")
+        }
+    }
+
+    suspend fun setNotificationEnabled(enabled: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[NOTIFICATION_KEY] = enabled
+            Log.d("UserPreferences", "Saving notification state: $enabled")
         }
     }
 

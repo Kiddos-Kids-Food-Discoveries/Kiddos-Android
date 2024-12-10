@@ -27,10 +27,10 @@ class PredictViewModel(private val repository: PredictRepository) : ViewModel() 
                 if (response.isSuccessful) {
                     _predictResult.value = response.body()
                 } else {
-                    // Handle API error
+                    Log.e("PredictViewModel", "Predict failed: ${response.errorBody()?.string()}")
                 }
+
             } catch (e: Exception) {
-                // Handle exception
             } finally {
                 _isLoading.value = false
             }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteOff"
     tools:context=".ui.activity.ScanResultActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -46,7 +45,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_extrabold"
-                            android:text="@string/food_title_scan"
+                            android:text="@string/sawi"
                             android:textColor="@color/white"
                             android:textSize="32sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,22 +58,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:contentDescription="@string/button_back_in_result"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:src="@drawable/ic_back"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/button_back_in_result"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/profileImage"
                         android:layout_width="match_parent"
-                        android:layout_height="270dp"
-                        android:layout_marginStart="25dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="45dp"
-                        android:layout_marginEnd="25dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="40dp"
                         app:cardCornerRadius="40dp"
                         app:strokeColor="@color/purpleKiddos">
@@ -83,7 +82,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:contentDescription="@string/image_result"
+                            android:contentDescription="@string/scan_image"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/fruit_loops_placeholder" />
 
@@ -95,7 +94,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/galleryButton"
+                            android:id="@+id/scanButton"
                             style="@style/OrangeButton"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
@@ -105,16 +104,16 @@
                             android:background="@drawable/button_red"
                             android:fontFamily="@font/inter_extrabold"
                             android:letterSpacing="0"
-                            android:text="@string/button_rescan"
+                            android:text="@string/rescan"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/analyzeButton"
+                            app:layout_constraintEnd_toStartOf="@id/homeButton"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/analyzeButton"
+                            android:id="@+id/homeButton"
                             style="@style/RedButton"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
@@ -123,13 +122,14 @@
                             android:background="@drawable/button_orange"
                             android:fontFamily="@font/inter_extrabold"
                             android:letterSpacing="0"
-                            android:text="@string/button_home_result"
+                            android:text="@string/home"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/galleryButton" />
+                            app:layout_constraintStart_toEndOf="@id/scanButton" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
@@ -153,7 +153,7 @@
                     android:layout_marginStart="22dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="@string/food_title_scan_btm"
+                    android:text="@string/sawi"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="29sp"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/button_translation"
+                    android:contentDescription="@string/translation"
                     android:src="@drawable/ic_translate"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintLeft_toRightOf="@id/foodNameDescription"
@@ -174,11 +174,11 @@
 
                 <ImageButton
                     android:id="@+id/btnTextToSpeech"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/button_speech_translation"
+                    android:contentDescription="@string/speak_out"
                     android:src="@drawable/ic_voice"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintStart_toEndOf="@id/btnTranslation"
@@ -190,9 +190,10 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:paddingTop="20dp"
-                    android:contentDescription="@string/result_food_nutrition"
+                    android:contentDescription="@string/food_nutrition"
                     android:orientation="horizontal"
                     android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:clipToPadding="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -209,13 +210,16 @@
                     android:fontFamily="@font/inter_medium"
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
-                    android:text="@string/result_description"
+                    android:text="@string/food_description"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="18sp"
+                    android:lineSpacingExtra="7dp"
+                    android:paddingBottom="15dp"
                     android:justificationMode="inter_word"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler" />
+                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler"
+                    tools:targetApi="o" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

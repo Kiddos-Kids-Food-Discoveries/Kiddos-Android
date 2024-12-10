@@ -1,7 +1,12 @@
 package org.bangkit.kiddos_android.worker
 
 import android.content.Context
-import androidx.work.*
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -14,7 +19,7 @@ object ReminderManager {
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             REMINDER_WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.UPDATE,
             workRequest
         )
     }
@@ -23,10 +28,15 @@ object ReminderManager {
         WorkManager.getInstance(context).cancelUniqueWork(REMINDER_WORK_NAME)
     }
 
+    fun triggerImmediateNotification(context: Context) {
+        val immediateWorkRequest: WorkRequest = OneTimeWorkRequestBuilder<DailyReminderWorker>()
+            .build()
+        WorkManager.getInstance(context).enqueue(immediateWorkRequest)
+    }
+
     private fun createDailyReminderWorkRequest(): PeriodicWorkRequest {
         return PeriodicWorkRequestBuilder<DailyReminderWorker>(1, TimeUnit.DAYS)
             .setInitialDelay(calculateInitialDelay(), TimeUnit.MILLISECONDS)
-            .setConstraints(createConstraints())
             .build()
     }
 
@@ -40,11 +50,5 @@ object ReminderManager {
         }.timeInMillis
 
         return if (targetTime > now) targetTime - now else targetTime + TimeUnit.DAYS.toMillis(1) - now
-    }
-
-    private fun createConstraints(): Constraints {
-        return Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
     }
 }

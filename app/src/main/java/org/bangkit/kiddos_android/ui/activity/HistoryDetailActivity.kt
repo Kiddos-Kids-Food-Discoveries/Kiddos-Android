@@ -2,6 +2,7 @@ package org.bangkit.kiddos_android.ui.activity
 
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,25 +17,46 @@ class HistoryDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityHistoryDetailBinding
     private lateinit var nutritionAdapter: NutritionAdapter
     private var textToSpeech: TextToSpeech? = null
-    private var isTranslated = false  // Flag to keep track of translation state
+    private var isTranslated = false
     private val translationMap = mapOf(
-        "tofu" to "tahu",
-        "grape" to "anggur"
-        // Add more translations as needed
+        "apple" to "Apel",
+        "avocado" to "Alpukat",
+        "banana" to "Pisang",
+        "broccoli" to "Brokoli",
+        "carrot" to "Wortel",
+        "chicken" to "Ayam",
+        "corn" to "Jagung",
+        "dragon fruit" to "Buah Naga",
+        "egg" to "Telur",
+        "grape" to "Anggur",
+        "green vegetables" to "Sayuran Hijau",
+        "orange" to "Jeruk",
+        "porridge" to "Bubur",
+        "potato" to "Kentang",
+        "rice" to "Nasi",
+        "tempeh" to "Tempe",
+        "tofu" to "Tahu",
+        "tomato" to "Tomat",
+        "watermelon" to "Semangka"
     )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        textToSpeech = TextToSpeech(this, this)  // Initialize TextToSpeech
+        window.sharedElementEnterTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
+        window.sharedElementReturnTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
+
+        textToSpeech = TextToSpeech(this, this)
 
         val historyItem = intent.getParcelableExtra<HistoryItem>("HISTORY_ITEM")
 
         historyItem?.let { item ->
-            binding.foodNameTitle.text = item.prediction.foodInfo.nama
-            binding.foodNameDescription.text = item.prediction.foodInfo.nama
+            val foodName = item.prediction.foodInfo.nama
+            binding.foodNameTitle.text = capitalizeWords(foodName)
+            binding.foodNameDescription.text = capitalizeWords(foodName)
             binding.foodDescription.text = item.prediction.foodInfo.deskripsi
 
             Glide.with(this).load(item.inputImage).into(binding.imageView)
@@ -55,47 +77,53 @@ class HistoryDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             binding.btnTranslation.setOnClickListener {
-                toggleTranslation(item.prediction.foodInfo.nama)
+                toggleTranslation(foodName)
             }
 
             binding.btnTextToSpeech.setOnClickListener {
-                speakOut(item.prediction.foodInfo.nama)
+                speakOut(foodName)
             }
         }
 
         binding.imageButton.setOnClickListener {
-            finish()
+            supportFinishAfterTransition()
         }
     }
 
     private fun toggleTranslation(foodName: String) {
         if (isTranslated) {
-            // If currently translated, switch back to English
-            binding.foodNameTitle.text = foodName
-            binding.foodNameDescription.text = foodName
+            val capitalizedFoodName = capitalizeWords(foodName)
+            binding.foodNameTitle.text = capitalizedFoodName
+            binding.foodNameDescription.text = capitalizedFoodName
         } else {
-            // If currently in English, translate to Indonesian
             val translatedName = translateFoodName(foodName)
             binding.foodNameTitle.text = translatedName
             binding.foodNameDescription.text = translatedName
         }
-        isTranslated = !isTranslated  // Toggle the translation state
+        isTranslated = !isTranslated
     }
 
     private fun translateFoodName(foodName: String?): String {
         return translationMap[foodName] ?: foodName ?: "Unknown"
     }
 
+    private fun capitalizeWords(text: String?): String {
+        return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        } } ?: ""
+    }
+
     private fun speakOut(foodName: String?) {
         val textToSpeak = if (isTranslated) binding.foodNameTitle.text.toString() else foodName
-        val locale = if (isTranslated) Locale.US else Locale("id", "ID")
+        val locale = if (isTranslated) Locale("id", "ID") else Locale.US
         textToSpeech?.language = locale
         textToSpeech?.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            // Initialize with Indonesian by default
             val result = textToSpeech?.setLanguage(Locale("id", "ID"))
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS", "Language not supported")
@@ -113,7 +141,7 @@ class HistoryDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {
+        supportFinishAfterTransition()
         super.onBackPressed()
-        finish()
     }
 }

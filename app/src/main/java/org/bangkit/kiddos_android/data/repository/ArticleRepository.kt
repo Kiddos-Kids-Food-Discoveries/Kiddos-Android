@@ -1,11 +1,9 @@
 package org.bangkit.kiddos_android.data.repository
 
 import android.util.Log
-import org.bangkit.kiddos_android.data.preferences.UserPreference
+
 import org.bangkit.kiddos_android.data.remote.api.ApiService
 import org.bangkit.kiddos_android.data.remote.response.ArticleResponse
-import org.bangkit.kiddos_android.data.remote.response.LoginResponse
-import org.bangkit.kiddos_android.data.remote.response.RegisterResponse
 import org.bangkit.kiddos_android.domain.model.Data
 import retrofit2.Response
 

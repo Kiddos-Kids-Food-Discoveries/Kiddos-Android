@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.worker
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -20,38 +21,39 @@ class DailyReminderWorker(private val context: Context, params: WorkerParameters
 
     override suspend fun doWork(): Result {
         return try {
-            showNotification()
-            Result.success()
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                showNotification()
+                Result.success()
+            } else {
+                Log.e("DailyReminderWorker", "Notification permission not granted")
+                Result.failure()
+            }
         } catch (e: Exception) {
             Log.e("DailyReminderWorker", "Error showing notification: ${e.message}")
             Result.failure()
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun showNotification() {
         createNotificationChannel()
 
-        // Check if the app has the necessary permission to post notifications
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-            val intent = Intent(context, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-            val builder = NotificationCompat.Builder(context, "daily_reminder_channel")
-                .setSmallIcon(R.drawable.ic_notif)
-                .setContentTitle("Daily Reminder")
-                .setContentText("This is your daily reminder notification!")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
+        val builder = NotificationCompat.Builder(context, "daily_reminder_channel")
+            .setSmallIcon(R.drawable.kiddos_full_icon)
+            .setContentTitle("KIDDOS")
+            .setContentText("Jangan Lupa Scan Makanananmu!")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
-            with(NotificationManagerCompat.from(context)) {
-                notify(1, builder.build())
-            }
-        } else {
-            Log.e("DailyReminderWorker", "Notification permission not granted")
-            // Optionally, you can inform the user or handle this case appropriately
+        with(NotificationManagerCompat.from(context)) {
+            notify(1, builder.build())
         }
     }
 

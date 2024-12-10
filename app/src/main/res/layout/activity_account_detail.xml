@@ -2,10 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteOff"
     android:padding="20dp"
     tools:context=".ui.activity.AccountDetailActivity">
 
@@ -27,7 +25,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="@string/account_detail_title"
+                android:text="@string/detail_akun"
                 android:textColor="@color/purpleKiddos"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -39,9 +37,8 @@
                 android:id="@+id/btnBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:contentDescription="@string/button_back_in_result"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_back_purple"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +50,6 @@
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -71,19 +67,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/app_name"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/placeholder_profile"/>
                 </com.google.android.material.card.MaterialCardView>
 
 
                 <TextView
-                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="@string/Detail_name_title"
+                    android:text="@string/nama"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="17sp" />
 
@@ -92,19 +88,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
                     android:background="@drawable/edit_text_background"
-                    android:hint="@string/name_hint_signup"
-                    android:paddingStart="10dp" />
+                    android:hint="@string/nama"
+                    android:autofillHints="name"
+                    android:inputType="text"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="15dp" />
 
                 <TextView
-                    android:id="@+id/tvEmailTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="@string/Detail_email_title"
+                    android:text="@string/email"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="17sp" />
 
@@ -115,10 +114,13 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/edit_text_background"
                     android:clickable="false"
+                    android:autofillHints="emailAddress"
                     android:cursorVisible="false"
                     android:focusable="false"
                     android:hint="@string/email"
-                    android:paddingStart="10dp"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/gray" />
 
@@ -134,8 +136,9 @@
                 android:layout_marginTop="70dp"
                 android:background="@drawable/button_orange"
                 android:fontFamily="@font/inter_extrabold"
-                android:text="@string/save_changes"
+                android:text="@string/simpan"
                 android:textSize="20sp"
+                android:textColor="@color/white"
                 app:backgroundTint="@color/orangePill"
                 app:layout_constraintTop_toBottomOf="@id/userInfoLayout"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -149,9 +152,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="70dp"
+                android:textColor="@color/white"
                 android:background="@drawable/button_orange"
                 android:fontFamily="@font/inter_extrabold"
-                android:text="@string/button_change_password"
+                android:text="@string/ubah_password"
                 android:textSize="20sp"
                 app:backgroundTint="@color/orangePill"
                 app:layout_constraintBottom_toBottomOf="parent"

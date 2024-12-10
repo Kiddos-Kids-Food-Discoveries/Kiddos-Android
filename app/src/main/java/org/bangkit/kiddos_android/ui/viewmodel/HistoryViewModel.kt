@@ -37,7 +37,6 @@ class HistoryViewModel(private val repository: HistoryRepository, private val us
             _isLoading.value = true
             val response = repository.deleteHistory(historyId)
             if (response.isSuccessful) {
-                // Update the history list after successful deletion
                 _history.value = _history.value?.filterNot { it.id == historyId }
             }
             _isLoading.value = false

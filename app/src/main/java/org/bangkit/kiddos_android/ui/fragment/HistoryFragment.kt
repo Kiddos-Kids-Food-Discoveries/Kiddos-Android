@@ -13,6 +13,8 @@ import org.bangkit.kiddos_android.databinding.FragmentHistoryBinding
 import org.bangkit.kiddos_android.ui.adapter.HistoryAdapter
 import org.bangkit.kiddos_android.ui.viewmodel.HistoryViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.factory.HistoryViewModelFactory
+import org.bangkit.kiddos_android.utils.NetworkUtils
+import android.widget.Toast
 
 class HistoryFragment : Fragment() {
 
@@ -48,7 +50,11 @@ class HistoryFragment : Fragment() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
-        historyViewModel.fetchHistory()
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            historyViewModel.fetchHistory()
+        } else {
+            Toast.makeText(requireContext(), "Tidak ada koneksi internet.", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroyView() {

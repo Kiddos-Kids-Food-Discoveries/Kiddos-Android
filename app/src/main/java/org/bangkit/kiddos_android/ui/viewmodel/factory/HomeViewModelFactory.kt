@@ -10,7 +10,7 @@ class HomeViewModelFactory(
     private val userRepository: UserRepository,
     private val articleRepository: ArticleRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {  // Correct method signature
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return HomeViewModel(userRepository, articleRepository) as T

@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.ui.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -16,29 +17,45 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityScanResultBinding
     private lateinit var nutritionAdapter: NutritionAdapter
     private var textToSpeech: TextToSpeech? = null
-    private var isTranslated = false  // Flag to keep track of translation state
+    private var isTranslated = false
 
-    private val translationMap = mapOf(
-        "tofu" to "tahu",
-        "grape" to "anggur"
-        // Add more translations as needed
+    val translationMap = mapOf(
+        "apple" to "Apel",
+        "avocado" to "Alpukat",
+        "banana" to "Pisang",
+        "broccoli" to "Brokoli",
+        "carrot" to "Wortel",
+        "chicken" to "Ayam",
+        "corn" to "Jagung",
+        "dragon fruit" to "Buah Naga",
+        "egg" to "Telur",
+        "grape" to "Anggur",
+        "green vegetables" to "Sayuran Hijau",
+        "orange" to "Jeruk",
+        "porridge" to "Bubur",
+        "potato" to "Kentang",
+        "rice" to "Nasi",
+        "tempeh" to "Tempe",
+        "tofu" to "Tahu",
+        "tomato" to "Tomat",
+        "watermelon" to "Semangka"
     )
 
-    private var originalFoodName: String? = null  // Store the original food name
+    private var originalFoodName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        textToSpeech = TextToSpeech(this, this)  // Initialize TextToSpeech
+        textToSpeech = TextToSpeech(this, this)
 
         val predictResponse = intent.getParcelableExtra<PredictResponse>("PREDICT_RESPONSE")
 
         predictResponse?.let { response ->
             originalFoodName = response.data?.prediction?.foodInfo?.nama
-            binding.foodNameTitle.text = originalFoodName
-            binding.foodNameDescription.text = originalFoodName
+            binding.foodNameTitle.text = capitalizeWords(originalFoodName)
+            binding.foodNameDescription.text = capitalizeWords(originalFoodName)
             binding.foodDescription.text = response.data?.prediction?.foodInfo?.deskripsi
 
             Glide.with(this).load(response.data?.inputImage).into(binding.imageView)
@@ -59,51 +76,58 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             binding.btnTranslation.setOnClickListener {
-                toggleTranslation()
+                response.data?.prediction?.foodInfo?.let { it1 -> toggleTranslation(it1.nama) }
             }
 
             binding.btnTextToSpeech.setOnClickListener {
-                speakOut()
+                response.data?.prediction?.foodInfo?.let { it1 -> speakOut(it1.nama) }
             }
         }
 
-        binding.galleryButton.setOnClickListener {
-            // Handle Rescan button click
+        binding.scanButton.setOnClickListener {
+            setResult(Activity.RESULT_OK)
             finish()
         }
 
-        binding.analyzeButton.setOnClickListener {
-            // Handle Home button click
+        binding.scanButton.setOnClickListener {
+            setResult(Activity.RESULT_OK)
             finish()
         }
 
         binding.imageButton.setOnClickListener {
-            // Handle back button click
+            setResult(Activity.RESULT_OK)
             finish()
         }
     }
 
-    private fun toggleTranslation() {
+    private fun toggleTranslation(foodName: String) {
         if (isTranslated) {
-            // If currently translated, switch back to English
-            binding.foodNameTitle.text = originalFoodName
-            binding.foodNameDescription.text = originalFoodName
+            val capitalizedFoodName = capitalizeWords(foodName)
+            binding.foodNameTitle.text = capitalizedFoodName
+            binding.foodNameDescription.text = capitalizedFoodName
         } else {
-            // If currently in English, translate to Indonesian
-            val translatedName = translateFoodName(originalFoodName)
+            val translatedName = translateFoodName(foodName)
             binding.foodNameTitle.text = translatedName
             binding.foodNameDescription.text = translatedName
         }
-        isTranslated = !isTranslated  // Toggle the translation state
+        isTranslated = !isTranslated
+    }
+
+    private fun capitalizeWords(text: String?): String {
+        return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        } } ?: ""
     }
 
     private fun translateFoodName(foodName: String?): String {
         return translationMap[foodName] ?: foodName ?: "Unknown"
     }
 
-    private fun speakOut() {
-        val textToSpeak = if (isTranslated) binding.foodNameTitle.text.toString() else originalFoodName
-        val locale = if (isTranslated) Locale.US else Locale("id", "ID")
+    private fun speakOut(foodName: String?) {
+        val textToSpeak = if (isTranslated) binding.foodNameTitle.text.toString() else foodName
+        val locale = if (isTranslated) Locale("id", "ID") else Locale.US
         textToSpeech?.language = locale
         textToSpeech?.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "")
     }
@@ -128,6 +152,7 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {
+        setResult(Activity.RESULT_OK)
         super.onBackPressed()
         finish()
     }

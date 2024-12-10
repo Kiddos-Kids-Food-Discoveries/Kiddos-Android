@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvSignInTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -24,8 +22,10 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/email"
+        android:autofillHints="emailAddress"
         android:inputType="textEmailAddress"
-        android:paddingStart="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -35,22 +35,25 @@
         android:background="@drawable/rounded_edittext"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:paddingStart="20dp" />
+        android:autofillHints="password"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#FF9800"
         android:text="@string/continuebtn"
         android:textColor="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/ivCharacterLogin"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/egg_icon"
         android:src="@drawable/ic_egg"
         android:layout_marginTop="16dp" />
 

@@ -39,11 +39,10 @@ class FoodAdapter(private val foodList: List<FoodItem>) : RecyclerView.Adapter<F
                     putExtra("FOOD_ITEM", foodItem)
                 }
 
-                // Set up shared element transition
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     context as AppCompatActivity,
-                    Pair<View, String>(binding.tvfoodTitle, "sharedName"),
-                    Pair<View, String>(binding.ivarticlesImage, "sharedImage")
+                    Pair(binding.tvfoodTitle, "sharedName"),
+                    Pair(binding.ivarticlesImage, "sharedImage")
                 )
 
                 context.startActivity(intent, options.toBundle())
@@ -52,6 +51,10 @@ class FoodAdapter(private val foodList: List<FoodItem>) : RecyclerView.Adapter<F
     }
 
     private fun capitalizeWords(text: String?): String {
-        return text?.split(" ")?.joinToString(" ") { it.capitalize(Locale.ROOT) } ?: ""
+        return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        } } ?: ""
     }
 }

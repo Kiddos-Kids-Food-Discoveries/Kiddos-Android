@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center"
-    android:background="#FFFFFF">
+    android:gravity="center">
 
     <TextView
-        android:id="@+id/tvSignUpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_title"
+        android:text="@string/sign_up"
         android:fontFamily="@font/inter_bold"
         android:textSize="30sp"
         android:textColor="#4A148C"
@@ -26,8 +24,12 @@
         android:layout_height="57dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
-        android:hint="@string/name_hint_signup"
-        android:paddingStart="20dp" />
+        android:hint="@string/nama"
+        android:autofillHints="name"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <EditText
         android:id="@+id/etEmail"
@@ -36,8 +38,11 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/email"
+        android:autofillHints="emailAddress"
+        android:textColor="@color/black"
         android:inputType="textEmailAddress"
-        android:paddingStart="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -46,8 +51,11 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/insert_password"
+        android:autofillHints="password"
+        android:textColor="@color/black"
         android:inputType="textPassword"
-        android:paddingStart="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <EditText
         android:id="@+id/etRePassword"
@@ -56,23 +64,27 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/retype_password"
+        android:autofillHints="password"
+        android:textColor="@color/black"
         android:inputType="textPassword"
-        android:paddingStart="20dp" />
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
 
     <Button
         android:id="@+id/btnContinueSignUp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:backgroundTint="#FF9800"
+        android:layout_marginTop="20dp"
         android:text="@string/continuebtn"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="16dp" />
 
     <ImageView
-        android:id="@+id/ivCharacterSignUp"
         android:layout_width="70dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_pear"
+        android:contentDescription="@string/pear_icon"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 

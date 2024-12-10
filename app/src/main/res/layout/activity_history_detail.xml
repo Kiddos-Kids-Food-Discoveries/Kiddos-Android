@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteOff"
     tools:context=".ui.activity.HistoryDetailActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -52,7 +51,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:transitionName="sharedName"/>
 
                         <ImageButton
                             android:id="@+id/imageButton"
@@ -85,7 +85,8 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@string/image_result"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/fruit_loops_placeholder" />
+                            app:srcCompat="@drawable/fruit_loops_placeholder"
+                            android:transitionName="sharedImage"/>
 
                     </com.google.android.material.card.MaterialCardView>
 
@@ -151,6 +152,7 @@
                     android:contentDescription="@string/food_nutrition_recycler"
                     android:orientation="horizontal"
                     android:paddingStart="15dp"
+                    android:paddingEnd="0dp"
                     android:clipToPadding="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -167,13 +169,16 @@
                     android:fontFamily="@font/inter_medium"
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
+                    android:lineSpacingExtra="7dp"
+                    android:paddingBottom="15dp"
                     android:text="@string/result_description"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="18sp"
                     android:justificationMode="inter_word"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler" />
+                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler"
+                    tools:targetApi="o" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

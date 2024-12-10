@@ -18,7 +18,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("x-api-key", BuildConfig.API_KEY)  // Menambahkan API Key ke header
+                    .addHeader("x-api-key", BuildConfig.API_KEY)
                     .build()
                 chain.proceed(request)
             }

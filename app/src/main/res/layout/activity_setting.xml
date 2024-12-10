@@ -5,20 +5,28 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@color/whiteOff"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="30dp"
     tools:context=".ui.activity.SettingActivity">
 
 
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="17dp"
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/ic_back_purple"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tvTopBarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/inter_extrabold"
-        android:text="@string/setting_title"
+        android:text="@string/pengaturan"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/purpleKiddos"
@@ -30,7 +38,8 @@
         android:id="@+id/icon_theme"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
         android:contentDescription="@string/notification_icon"
         android:src="@drawable/ic_notif"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/inter_bold"
-        android:text="@string/notification_title"
+        android:text="@string/title_notifications"
         android:textColor="@color/purpleKiddos"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -50,19 +59,18 @@
         app:layout_constraintTop_toTopOf="@id/icon_theme" />
 
     <TextView
-        android:id="@+id/desc_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/inter_medium"
-        android:text="@string/notification_description"
+        android:text="@string/aktifkan_peningat_harian"
         android:textSize="14sp"
         android:textColor="@color/purpleKiddos"
         app:layout_constraintStart_toEndOf="@id/icon_theme"
         app:layout_constraintTop_toBottomOf="@id/title_theme" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switch_theme"
+        android:id="@+id/switchNotif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

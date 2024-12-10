@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/kiddos_backdrop">
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -21,11 +23,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/artikel_terbaik"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
-            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnBack" />
 
         <ImageButton
@@ -37,8 +41,7 @@
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/orangePill" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,7 +84,6 @@
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -110,16 +112,6 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvArticleContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/article_content"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="15sp"
-                        android:layout_marginTop="10dp" />
-
-                    <TextView
                         android:id="@+id/tvCreatedAt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -127,7 +119,23 @@
                         android:textColor="@color/black"
                         android:fontFamily="@font/inter_regular"
                         android:textSize="12sp"
+                        android:gravity="end"
                         android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvArticleContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/article_content"
+                        android:textColor="@color/black"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/inter_regular"
+                        android:textSize="15sp"
+                        android:lineSpacingExtra="3dp"
+                        android:layout_marginTop="10dp"
+                        tools:targetApi="o" />
+
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

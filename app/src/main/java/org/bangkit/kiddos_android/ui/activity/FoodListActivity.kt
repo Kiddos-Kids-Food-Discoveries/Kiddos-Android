@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.data.remote.api.ApiConfig
 import org.bangkit.kiddos_android.data.repository.FoodRepository
 import org.bangkit.kiddos_android.databinding.ActivityFoodListBinding
@@ -51,10 +49,17 @@ class FoodListActivity : AppCompatActivity() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
+        binding.backButton.setOnClickListener {
+            finish()
+        }
         foodViewModel.getFoodByCategory(category)
     }
 
     private fun capitalizeWords(text: String?): String {
-        return text?.split(" ")?.joinToString(" ") { it.capitalize(Locale.ROOT) } ?: ""
+        return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        } } ?: ""
     }
 }

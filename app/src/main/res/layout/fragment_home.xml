@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purpleKiddos"
+            android:background="@drawable/kiddos_backdrop"
             android:scaleType="centerCrop">
 
             <com.google.android.material.textview.MaterialTextView
@@ -26,7 +26,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="@string/hello_guest"
+                android:text="@string/hello"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintRight_toLeftOf="@id/profileImage"
@@ -41,7 +41,7 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/profile_image_border"
-                android:contentDescription="@string/profile_image_home"
+                android:contentDescription="@string/profile_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.Circle"
@@ -61,16 +61,15 @@
                 android:id="@+id/appIcon"
                 android:layout_width="170dp"
                 android:layout_height="206dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginBottom="-35dp"
                 android:background="@drawable/kiddos_icon_half"
-                android:contentDescription="@string/profile_image_home"
+                android:contentDescription="@string/profile_image"
                 app:layout_constraintBottom_toTopOf="@id/cardViewMain"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/motivationalText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -106,12 +105,10 @@
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/scanLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/scanCardView"
                             android:layout_width="match_parent"
                             android:layout_height="170dp"
                             android:layout_marginStart="10dp"
@@ -134,7 +131,7 @@
                             android:layout_height="110dp"
                             android:layout_marginStart="50dp"
                             android:background="@drawable/ic_scan_border"
-                            android:contentDescription="@string/scan_border"
+                            android:contentDescription="@string/scan"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -143,7 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
-                            android:text="@string/button_scan_home"
+                            android:text="@string/scan_capitalize"
                             android:textColor="@color/white"
                             android:textSize="24sp"
                             app:layout_constraintBottom_toBottomOf="@id/scanIcon"
@@ -152,7 +149,6 @@
                             app:layout_constraintTop_toTopOf="@id/scanIcon" />
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/appleIcon"
                             android:layout_width="161dp"
                             android:layout_height="165dp"
                             android:layout_marginEnd="-10dp"
@@ -176,7 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_extrabold"
-                            android:text="@string/find_foods"
+                            android:text="@string/temukan_makanan_terbaik"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp" />
 
@@ -208,12 +204,13 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="60dp"
                                         android:layout_marginTop="5dp"
-                                        app:srcCompat="@drawable/img_cabbage" />
+                                        app:srcCompat="@drawable/img_cabbage"
+                                        tools:ignore="TooDeepLayout" />
 
                                     <com.google.android.material.textview.MaterialTextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/vegies"
+                                        android:text="@string/sayur"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/inter_semibold"
                                         android:textColor="@color/white"/>
@@ -256,7 +253,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="3dp"
 
-                                        android:text="@string/fruits"
+                                        android:text="@string/buah"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/inter_semibold"
                                         android:textColor="@color/white"/>
@@ -298,7 +295,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="3dp"
-                                        android:text="@string/foodies"
+                                        android:text="@string/makanan"
                                         android:textSize="14sp"
                                         android:fontFamily="@font/inter_semibold"
                                         android:textColor="@color/white"/>
@@ -313,7 +310,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="25dp"
                         android:orientation="vertical">
 
 
@@ -323,7 +320,7 @@
                             android:layout_marginStart="12dp"
                             android:layout_marginEnd="10dp"
                             android:fontFamily="@font/inter_extrabold"
-                            android:text="@string/best_article"
+                            android:text="@string/temukan_artikel_terbaik"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp" />
 
@@ -340,8 +337,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="3dp"
-                            android:layout_marginTop="12dp"
-                            android:contentDescription="@string/recycler_article"
+                            android:layout_marginTop="8dp"
+                            android:contentDescription="@string/artikel_makanan"
                             android:orientation="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

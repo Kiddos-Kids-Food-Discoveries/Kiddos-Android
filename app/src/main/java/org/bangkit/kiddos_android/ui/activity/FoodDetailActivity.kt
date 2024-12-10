@@ -45,7 +45,6 @@ class FoodDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding = ActivityFoodDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set up shared element transition
         window.sharedElementEnterTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
         window.sharedElementReturnTransition = TransitionInflater.from(this).inflateTransition(android.R.transition.move)
 
@@ -108,7 +107,11 @@ class FoodDetailActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun capitalizeWords(text: String?): String {
-        return text?.split(" ")?.joinToString(" ") { it.capitalize(Locale.ROOT) } ?: ""
+        return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.ROOT
+            ) else it.toString()
+        } } ?: ""
     }
 
     private fun speakOut(foodName: String?) {

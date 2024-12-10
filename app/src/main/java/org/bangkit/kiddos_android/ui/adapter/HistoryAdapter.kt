@@ -2,10 +2,14 @@ package org.bangkit.kiddos_android.ui.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import androidx.core.util.Pair
 import org.bangkit.kiddos_android.databinding.ItemHistoryBinding
 import org.bangkit.kiddos_android.domain.model.HistoryItem
 import org.bangkit.kiddos_android.ui.activity.HistoryDetailActivity
@@ -31,7 +35,7 @@ class HistoryAdapter(
     inner class HistoryViewHolder(private val binding: ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(historyItem: HistoryItem) {
             Glide.with(binding.imageEvent.context).load(historyItem.inputImage).into(binding.imageEvent)
-            binding.tvTitle.text = historyItem.prediction.foodInfo.nama
+            binding.tvTitle.text = capitalizeWords(historyItem.prediction.foodInfo.nama)
             binding.tvDescription.text = historyItem.prediction.foodInfo.deskripsi
             binding.tvDate.text = formatTimestamp(historyItem.timestamp)
 
@@ -40,11 +44,25 @@ class HistoryAdapter(
             }
 
             binding.root.setOnClickListener {
+                val context = binding.root.context
                 val intent = Intent(binding.root.context, HistoryDetailActivity::class.java).apply {
                     putExtra("HISTORY_ITEM", historyItem)
                 }
-                binding.root.context.startActivity(intent)
+
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    context as AppCompatActivity,
+                    Pair(binding.tvTitle, "sharedName"),
+                    Pair(binding.imageEvent, "sharedImage")
+                )
+                binding.root.context.startActivity(intent, options.toBundle())
             }
+        }
+        private fun capitalizeWords(text: String?): String {
+            return text?.split(" ")?.joinToString(" ") { it.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.ROOT
+                ) else it.toString()
+            } } ?: ""
         }
 
         private fun formatTimestamp(timestamp: String): String {
@@ -57,13 +75,13 @@ class HistoryAdapter(
         private fun showDeleteConfirmationDialog(historyItem: HistoryItem) {
             val context = binding.root.context
             AlertDialog.Builder(context).apply {
-                setTitle("Delete Confirmation")
-                setMessage("Are you sure you want to delete this history item?")
-                setPositiveButton("Yes") { dialog, _ ->
+                setTitle("Konfirmasi Hapus")
+                setMessage("Apakah anda yakin ingin menghapus item riwayat ini?")
+                setPositiveButton("Ya") { dialog, _ ->
                     onDeleteClick(historyItem)
                     dialog.dismiss()
                 }
-                setNegativeButton("No") { dialog, _ ->
+                setNegativeButton("Tidak") { dialog, _ ->
                     dialog.dismiss()
                 }
                 create()
