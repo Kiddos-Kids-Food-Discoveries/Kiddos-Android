@@ -1,6 +1,8 @@
 package org.bangkit.kiddos_android.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -76,6 +78,10 @@ class ProfileFragment : Fragment() {
         binding.buttonDetail.setOnClickListener {
             navigateToAccountDetailActivity()
         }
+        binding.buttonEmail.setOnClickListener {
+            sendEmail()
+        }
+
     }
 
     private fun navigateToSettingActivity() {
@@ -114,6 +120,22 @@ class ProfileFragment : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private fun sendEmail() {
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("c014b4ky1807@bangkit.academy"))
+            putExtra(Intent.EXTRA_SUBJECT, "Kiddos")
+        }
+        if (emailIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(emailIntent)
+        } else {
+            Toast.makeText(requireContext(), "No email app found", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
