@@ -223,13 +223,25 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
     private fun resizeImageFile(imageFile: File): File {
         val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
 
+        val maxWidth = 800
+        val maxHeight = 800
+
+        val ratioBitmap = bitmap.width.toFloat() / bitmap.height.toFloat()
+        val targetWidth: Int
+        val targetHeight: Int
+        if (bitmap.width > bitmap.height) {
+            targetWidth = maxWidth
+            targetHeight = (maxWidth / ratioBitmap).toInt()
+        } else {
+            targetWidth = (maxHeight * ratioBitmap).toInt()
+            targetHeight = maxHeight
+        }
+
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false)
+
         val compressedFile = File(requireContext().cacheDir, "compressed_image.jpg")
         val outputStream = FileOutputStream(compressedFile)
-
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
-
-
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
         outputStream.flush()
         outputStream.close()
 
