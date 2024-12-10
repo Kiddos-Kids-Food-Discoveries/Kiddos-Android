@@ -27,7 +27,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="Detail Akun"
+                android:text="@string/account_detail_title"
                 android:textColor="@color/purpleKiddos"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -41,7 +41,7 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:contentDescription="Back"
+                android:contentDescription="@string/button_back_in_result"
                 android:src="@drawable/ic_back_purple"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +53,7 @@
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -82,7 +83,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Nama"
+                    android:text="@string/Detail_name_title"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="17sp" />
 
@@ -92,7 +93,7 @@
                     android:layout_height="70dp"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/edit_text_background"
-                    android:hint="Nama"
+                    android:hint="@string/name_hint_signup"
                     android:paddingStart="10dp" />
 
                 <TextView
@@ -103,7 +104,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Email"
+                    android:text="@string/Detail_email_title"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="17sp" />
 
@@ -116,7 +117,7 @@
                     android:clickable="false"
                     android:cursorVisible="false"
                     android:focusable="false"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:paddingStart="10dp"
                     android:textColor="@color/gray"
                     android:textColorHint="@color/gray" />
@@ -133,7 +134,7 @@
                 android:layout_marginTop="70dp"
                 android:background="@drawable/button_orange"
                 android:fontFamily="@font/inter_extrabold"
-                android:text="Simpan"
+                android:text="@string/save_changes"
                 android:textSize="20sp"
                 app:backgroundTint="@color/orangePill"
                 app:layout_constraintTop_toBottomOf="@id/userInfoLayout"
@@ -150,7 +151,7 @@
                 android:layout_marginBottom="70dp"
                 android:background="@drawable/button_orange"
                 android:fontFamily="@font/inter_extrabold"
-                android:text="Ubah Password"
+                android:text="@string/button_change_password"
                 android:textSize="20sp"
                 app:backgroundTint="@color/orangePill"
                 app:layout_constraintBottom_toBottomOf="parent"

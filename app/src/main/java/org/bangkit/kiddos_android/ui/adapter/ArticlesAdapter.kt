@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.ui.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.domain.model.Data
+import org.bangkit.kiddos_android.ui.activity.ArticleDetailActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +27,15 @@ class ArticlesAdapter(
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = articles[position]
         holder.bind(article)
-        holder.itemView.setOnClickListener { onItemClick(article) }
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, ArticleDetailActivity::class.java)
+            intent.putExtra("articleTitle", article.title)
+            intent.putExtra("articleContent", article.content)
+            intent.putExtra("articlePicture", article.articlePicture)
+            intent.putExtra("createdAt", article.createdAt)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = articles.size
@@ -52,14 +62,9 @@ class ArticlesAdapter(
 
         private fun formatDate(dateString: String): String {
             try {
-                // Define the input and output date formats
                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
                 val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
-
-                // Parse the input date
                 val date = inputFormat.parse(dateString)
-
-                // Return the formatted date
                 return if (date != null) {
                     outputFormat.format(date)
                 } else {

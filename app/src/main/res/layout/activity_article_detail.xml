@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/kiddos_backdrop">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
@@ -30,14 +30,16 @@
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/button_back_detail_article"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/orangePill" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Artikel Image -->
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_image"
                 android:layout_width="0dp"
@@ -71,11 +73,13 @@
                     android:id="@+id/ivMediaCover"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/fruit_loops_placeholder"
+                    android:contentDescription="@string/detail_image_article"
                     android:background="@color/white" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Artikel Title & Content -->
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_details"
                 android:layout_width="0dp"
@@ -98,18 +102,20 @@
                         android:id="@+id/tvArticleTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/article_detail_title"
+                        android:fontFamily="@font/inter_bold"
                         android:textAppearance="?attr/textAppearanceHeadline5"
-                        android:textStyle="bold"
-                        android:text="Article Detail"
-                        android:textColor="@color/green"
-                        android:textSize="25sp"/>
+                        android:textColor="@color/orangePill"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvArticleContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Content"
+                        android:text="@string/article_content"
                         android:textColor="@color/black"
+                        android:fontFamily="@font/inter_regular"
                         android:textSize="15sp"
                         android:layout_marginTop="10dp" />
 
@@ -117,8 +123,9 @@
                         android:id="@+id/tvCreatedAt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Created At"
+                        android:text="@string/article_created_at"
                         android:textColor="@color/black"
+                        android:fontFamily="@font/inter_regular"
                         android:textSize="12sp"
                         android:layout_marginTop="10dp" />
                 </LinearLayout>

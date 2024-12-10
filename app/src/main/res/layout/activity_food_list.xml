@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/inter_bold"
-        android:text="Makanan"
+        android:text="@string/food_list_title"
         android:textColor="@color/purpleKiddos"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
