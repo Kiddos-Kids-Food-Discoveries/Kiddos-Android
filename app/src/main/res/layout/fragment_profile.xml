@@ -66,7 +66,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="25dp"
                         android:fontFamily="@font/inter_bold"
-                        android:text="Guest"
+                        android:text="@string/guest_name"
                         android:textColor="@color/purpleKiddos"
                         android:textSize="32sp" />
 
@@ -90,7 +90,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Detail Akun"
+                            android:text="@string/account_detail"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -123,7 +123,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Pengaturan"
+                            android:text="@string/setting"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -156,7 +156,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Hubungi Kami"
+                            android:text="@string/contact_us"
                             android:textColor="@color/purpleKiddos"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -183,7 +183,7 @@
                         android:background="@drawable/button_orange"
                         android:fontFamily="@font/inter_extrabold"
                         android:letterSpacing="0"
-                        android:text="Log Out"
+                        android:text="@string/log_out"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="20sp" />

@@ -49,7 +49,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fruit Loops"
+                    android:text="@string/fruit_loops"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
@@ -62,7 +62,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_medium"
                     android:maxLines="2"
-                    android:text="Lorem ipsum dolor sit amet in dalar tu simo."
+                    android:text="@string/description_history"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
@@ -71,10 +71,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
-                    android:text="24 Juni 2024"
+                    android:text="@string/date_history"
                     android:fontFamily="@font/inter_regular"
                     android:textColor="@android:color/white"
-                    android:textSize="10sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <ImageView
@@ -83,6 +83,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="1dp"
+                android:contentDescription="@string/button_delete_history"
                 android:background="@drawable/image_border"
                 android:src="@drawable/ic_delete"
                 app:tint="@color/white" />

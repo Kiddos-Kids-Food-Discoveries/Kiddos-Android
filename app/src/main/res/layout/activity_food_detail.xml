@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteOff"
-    android:paddingBottom="?attr/actionBarSize"
     tools:context=".ui.activity.FoodDetailActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -47,19 +46,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_extrabold"
-                            android:text="Sawi"
+                            android:text="@string/food_title_scan"
                             android:textColor="@color/white"
                             android:textSize="32sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:transitionName="sharedName"/>
 
                         <ImageButton
                             android:id="@+id/imageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:contentDescription="@string/button_back_in_result"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:src="@drawable/ic_back"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,15 +71,16 @@
 
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/foodImage"
                         android:layout_width="match_parent"
                         android:layout_height="360dp"
                         android:layout_marginTop="10dp"
-                        app:srcCompat="@drawable/img_cabbage" />
+                        app:srcCompat="@drawable/img_cabbage"
+                        android:transitionName="sharedImage"/>
 
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/foodDetailLayout"
@@ -95,12 +97,12 @@
                     android:id="@+id/foodNameDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginBottom="20dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="Sawi"
+                    android:text="@string/food_title_scan_btm"
                     android:textColor="@color/purpleKiddos"
-                    android:textSize="32sp"
+                    android:textSize="29sp"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintRight_toLeftOf="@id/btnTranslation"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -111,21 +113,34 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Translation"
+                    android:contentDescription="@string/button_translation"
                     android:src="@drawable/ic_translate"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintLeft_toRightOf="@id/foodNameDescription"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnTextToSpeech"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/button_speech_translation"
+                    android:src="@drawable/ic_voice"
+                    app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
+                    app:layout_constraintStart_toEndOf="@id/btnTranslation"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/foodNutrition_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="food nutrition"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="20dp"
+                    android:contentDescription="@string/food_nutrition_recycler"
                     android:orientation="horizontal"
-                    android:paddingStart="25dp"
+                    android:paddingStart="15dp"
+                    android:clipToPadding="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -137,13 +152,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="17dp"
                     android:fontFamily="@font/inter_medium"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:text="Pada bagian ini berisikan khasiat dari makanan jika ada khasiat untuk tubuh agar anak kecil itu paham, sedikit aja kok."
+                    android:paddingStart="22dp"
+                    android:paddingEnd="22dp"
+                    android:lineSpacingExtra="7dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/result_description"
                     android:textColor="@color/purpleKiddos"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:justificationMode="inter_word"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

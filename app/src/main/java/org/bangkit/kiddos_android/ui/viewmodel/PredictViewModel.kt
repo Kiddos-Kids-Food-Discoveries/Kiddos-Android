@@ -1,5 +1,6 @@
 package org.bangkit.kiddos_android.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import org.bangkit.kiddos_android.data.repository.PredictRepository
 
 class PredictViewModel(private val repository: PredictRepository) : ViewModel() {
 
-    private val _predictResult = MutableLiveData<PredictResponse?>() // Ubah menjadi nullable
+    private val _predictResult = MutableLiveData<PredictResponse?>()
     val predictResult: LiveData<PredictResponse?> get() = _predictResult
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -38,6 +39,7 @@ class PredictViewModel(private val repository: PredictRepository) : ViewModel() 
 
     fun resetPredictResult() {
         _predictResult.value = null
+        Log.d("PredictViewModel", "Predict result reset.")
     }
 }
 

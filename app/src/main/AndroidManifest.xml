@@ -26,6 +26,9 @@
         android:theme="@style/Theme.KiddosAndroid"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.ArticleDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.HistoryDetailActivity"
             android:exported="false" />
         <activity
