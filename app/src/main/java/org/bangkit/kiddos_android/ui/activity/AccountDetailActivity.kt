@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,13 +14,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.data.preferences.UserPreference
 import org.bangkit.kiddos_android.data.remote.api.ApiConfig
+import org.bangkit.kiddos_android.data.repository.UserRepository
 import org.bangkit.kiddos_android.databinding.ActivityAccountDetailBinding
 import org.bangkit.kiddos_android.ui.viewmodel.AccountDetailViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.factory.ViewModelFactory
@@ -31,6 +36,8 @@ class AccountDetailActivity : AppCompatActivity() {
     private val PICK_IMAGE_REQUEST = 1
     private lateinit var binding: ActivityAccountDetailBinding
     private lateinit var accountDetailViewModel: AccountDetailViewModel
+    private lateinit var userPreference: UserPreference
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +46,11 @@ class AccountDetailActivity : AppCompatActivity() {
 
         binding.progressBarLoading.visibility = View.GONE
 
+        userPreference = UserPreference.getInstance(applicationContext)
+        val userRepository = UserRepository(ApiConfig.getApiService())
         accountDetailViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(UserPreference.getInstance(applicationContext))
+            ViewModelFactory(userPreference, userRepository)
         ).get(AccountDetailViewModel::class.java)
 
         accountDetailViewModel.name.observe(this, Observer { name ->
@@ -49,17 +58,35 @@ class AccountDetailActivity : AppCompatActivity() {
         })
 
         accountDetailViewModel.isLoading.observe(this, Observer { isLoading ->
-            if (isLoading) {
-                binding.progressBarLoading.visibility = View.VISIBLE
-            } else {
-                binding.progressBarLoading.visibility = View.GONE
-            }
+            binding.progressBarLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
 
-        accountDetailViewModel.fetchUserData()
+        accountDetailViewModel.user.observe(this) { user ->
+            user?.let {
+                Log.d("AccountDetailActivity", "User Picture URL: ${it.userPicture}")
+
+                Glide.with(this)
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Add timestamp to invalidate cache
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(R.drawable.placeholder_profile)
+                    .into(binding.userImage)
+            } ?: run {
+                Log.d("AccountDetailActivity", "User is null or guest user")
+                binding.editName.setText(getString(R.string.guest))
+            }
+        }
+
+        lifecycleScope.launch {
+            userPreference.getUserId().collect { userId ->
+                if (userId.isNotEmpty()) {
+                    accountDetailViewModel.fetchUser(userId)
+                }
+            }
+        }
 
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            finish()
         }
 
         binding.userImage.setOnClickListener {
@@ -76,16 +103,10 @@ class AccountDetailActivity : AppCompatActivity() {
             val newName = binding.editName.text.toString()
             if (newName.isNotEmpty()) {
                 lifecycleScope.launch {
-                    UserPreference.getInstance(applicationContext).getUserId().collect { userId ->
-                        if (userId.isNotEmpty() && selectedImageUri != null) {
-                            val userPictureFile = getImageFileFromUri(selectedImageUri)
+                    userPreference.getUserId().collect { userId ->
+                        if (userId.isNotEmpty()) {
+                            val userPictureFile = selectedImageUri?.let { getImageFileFromUri(it) }
                             updateUser(newName, userId, userPictureFile)
-                        } else {
-                            Toast.makeText(
-                                this@AccountDetailActivity,
-                                "Silahkan tambahkan foto profil",
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
                     }
                 }
@@ -104,13 +125,11 @@ class AccountDetailActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            UserPreference.getInstance(applicationContext).getEmail().collect { userEmail ->
+            userPreference.getEmail().collect { userEmail ->
                 binding.editEmail.setText(userEmail)
             }
         }
     }
-
-    private var selectedImageUri: Uri? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -147,8 +166,6 @@ class AccountDetailActivity : AppCompatActivity() {
         return file
     }
 
-
-
     private fun clearOldCache() {
         val cacheDir = cacheDir
         if (cacheDir.isDirectory) {
@@ -160,40 +177,33 @@ class AccountDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUser(newName: String, userId: String, userPictureFile: File) {
+
+    private fun updateUser(newName: String, userId: String, userPictureFile: File?) {
         binding.progressBarLoading.visibility = View.VISIBLE
 
-        val userPictureRequestBody =
-            userPictureFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        val userPicturePart = MultipartBody.Part.createFormData(
-            "user_picture",
-            userPictureFile.name,
-            userPictureRequestBody
-        )
-        val nameRequestBody = newName.toRequestBody("text/plain".toMediaTypeOrNull())
-        val userIdRequestBody = userId.toRequestBody("text/plain".toMediaTypeOrNull())
+        val params = mutableMapOf<String, RequestBody>()
+        params["name"] = newName.toRequestBody("text/plain".toMediaTypeOrNull())
+        params["userId"] = userId.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val userPicturePart = userPictureFile?.let {
+            val userPictureRequestBody = it.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("user_picture", it.name, userPictureRequestBody)
+        }
 
         lifecycleScope.launch {
             try {
                 val response = ApiConfig.getApiService()
-                    .updateUser(userId, userPicturePart, nameRequestBody, userIdRequestBody)
-
+                    .updateUser(userId, userPicturePart, params)
                 binding.progressBarLoading.visibility = View.GONE
 
                 if (response.isSuccessful) {
                     val updateUserResponse = response.body()
                     if (updateUserResponse?.status == "success") {
-                        Toast.makeText(
-                            this@AccountDetailActivity,
-                            "Update sukses. Buka ulang apabila tidak ada perubahan.",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                        UserPreference.getInstance(applicationContext).apply {
-                            saveName(newName)
-                        }
+                        userPreference.saveName(newName)
 
                         clearOldCache()
+
+                        finish()
                     } else {
                         Toast.makeText(
                             this@AccountDetailActivity,
@@ -210,9 +220,17 @@ class AccountDetailActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 binding.progressBarLoading.visibility = View.GONE
+                Toast.makeText(
+                    this@AccountDetailActivity,
+                    "Error: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
+
+
+
 
     private fun showConfirmationDialog(email: String) {
         val builder = AlertDialog.Builder(this)
@@ -259,3 +277,5 @@ class AccountDetailActivity : AppCompatActivity() {
         }
     }
 }
+
+

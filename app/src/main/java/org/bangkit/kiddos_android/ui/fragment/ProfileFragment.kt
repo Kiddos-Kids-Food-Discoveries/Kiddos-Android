@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.coroutines.launch
@@ -48,8 +49,12 @@ class ProfileFragment : Fragment() {
 
         userPreference = UserPreference.getInstance(requireContext())
 
-        observeViewModel()
+        val swipeRefreshLayout = binding.root.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            fetchUserInfo()
+        }
 
+        observeViewModel()
         loadUserName()
 
         if (homeViewModel.user.value == null) {
@@ -66,6 +71,7 @@ class ProfileFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun setupListeners() {
         binding.actionLogout.setOnClickListener {
@@ -163,12 +169,15 @@ class ProfileFragment : Fragment() {
             userPreference.getUserId().collect { userId ->
                 if (userId.isNotEmpty()) {
                     homeViewModel.fetchUser(userId)
+                    binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation when done
                 } else {
                     binding.profileName.text = getString(R.string.guest)
+                    binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
                 }
             }
         }
     }
+
 
     private fun loadUserName() {
         lifecycleScope.launch {
@@ -181,5 +190,4 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
 }

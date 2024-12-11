@@ -20,6 +20,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 
 
@@ -82,9 +83,8 @@ interface ApiService {
     @PUT("users/{userId}")
     suspend fun updateUser(
         @Path("userId") userId: String,
-        @Part userPicture: MultipartBody.Part,
-        @Part("name") name: RequestBody,
-        @Part("userId") userIdField: RequestBody
+        @Part userPicture: MultipartBody.Part?,
+        @PartMap params: Map<String, @JvmSuppressWildcards RequestBody>
     ): Response<UpdateUserResponse>
 }
 

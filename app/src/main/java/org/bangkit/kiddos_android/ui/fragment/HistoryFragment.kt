@@ -37,6 +37,9 @@ class HistoryFragment : Fragment() {
         historyViewModel = ViewModelProvider(this, viewModelFactory).get(HistoryViewModel::class.java)
 
         historyViewModel.history.observe(viewLifecycleOwner) { historyList ->
+            if (historyList.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Tidak ada data riwayat", Toast.LENGTH_SHORT).show()
+            }
             historyAdapter = HistoryAdapter(historyList) { historyItem ->
                 historyViewModel.deleteHistory(historyItem.id)
             }
@@ -44,16 +47,32 @@ class HistoryFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = historyAdapter
             }
+
+            binding.swipeRefreshLayout.isRefreshing = false
         }
 
         historyViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            if (NetworkUtils.isNetworkAvailable(requireContext())) {
+                historyViewModel.fetchHistory()
+            } else {
+                Toast.makeText(requireContext(), "Tidak ada koneksi internet.", Toast.LENGTH_LONG).show()
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
         }
 
         if (NetworkUtils.isNetworkAvailable(requireContext())) {
             historyViewModel.fetchHistory()
         } else {
             Toast.makeText(requireContext(), "Tidak ada koneksi internet.", Toast.LENGTH_LONG).show()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -62,3 +81,5 @@ class HistoryFragment : Fragment() {
         _binding = null
     }
 }
+
+

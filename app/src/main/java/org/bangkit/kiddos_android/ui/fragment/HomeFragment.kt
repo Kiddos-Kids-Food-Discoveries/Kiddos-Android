@@ -73,6 +73,11 @@ class HomeFragment : Fragment() {
             fetchArticles()
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            fetchArticles()
+            fetchUserInfo()
+        }
+
         binding.cardViewMain.setOnClickListener {
             Log.d("HomeFragment", "Navigating to ScanFragment")
             findNavController().navigate(R.id.action_navigation_home_to_navigation_scan)
@@ -157,6 +162,8 @@ class HomeFragment : Fragment() {
             }
             binding.recyclerViewArticles.adapter = articlesAdapter
             binding.progressBarArticle.visibility = View.GONE
+            // Stop the refresh animation once the data is fetched
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -181,7 +188,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun fetchUserInfo() {
         lifecycleScope.launch {
             userPreference.getUserId().collect { userId ->
@@ -201,3 +207,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+
