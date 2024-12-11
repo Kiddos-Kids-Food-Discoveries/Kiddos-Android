@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         userPreference = UserPreference.getInstance(requireContext())
@@ -133,7 +133,7 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
         }
         binding.recyclerViewArticles.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)  // Set spanCount to 2
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = articlesAdapter
         }
     }
@@ -162,7 +162,6 @@ class HomeFragment : Fragment() {
             }
             binding.recyclerViewArticles.adapter = articlesAdapter
             binding.progressBarArticle.visibility = View.GONE
-            // Stop the refresh animation once the data is fetched
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

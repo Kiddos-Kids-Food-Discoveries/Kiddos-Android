@@ -1,6 +1,5 @@
 package org.bangkit.kiddos_android.ui.fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -85,7 +84,7 @@ class ProfileFragment : Fragment() {
             navigateToAccountDetailActivity()
         }
         binding.buttonEmail.setOnClickListener {
-            sendEmail()
+            openBrowser()
         }
 
     }
@@ -127,14 +126,10 @@ class ProfileFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
-    private fun sendEmail() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://wa.me/6281918332020"))
-        if (browserIntent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(browserIntent)
-        } else {
-            Toast.makeText(requireContext(), "No browser app found", Toast.LENGTH_SHORT).show()
-        }
+    private fun openBrowser() {
+        val url = "http://wa.me/6281918332020"
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        requireContext().startActivity(browserIntent)
     }
 
     private fun observeViewModel() {
