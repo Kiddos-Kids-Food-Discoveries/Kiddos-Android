@@ -14,6 +14,8 @@ Download Link APK Kiddos :<br>
 ## Features
 - [x] Sign Up
 - [x] Sign In
+- [x] Food Scan
+- [x] Scan History
 - [x] Bottom Navigation
 - [x] Translation Name of Foods
 - [x] Profile
