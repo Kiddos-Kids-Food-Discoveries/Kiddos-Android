@@ -1,12 +1,14 @@
 package org.bangkit.kiddos_android.ui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import org.bangkit.kiddos_android.R
 import org.bangkit.kiddos_android.data.remote.response.PredictResponse
 import org.bangkit.kiddos_android.databinding.ActivityScanResultBinding
 import org.bangkit.kiddos_android.ui.adapter.NutritionAdapter
@@ -89,8 +91,10 @@ class ScanResultActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             finish()
         }
 
-        binding.scanButton.setOnClickListener {
-            setResult(Activity.RESULT_OK)
+        binding.homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("navigate_to", R.id.navigation_home) // Kirim informasi untuk navigasi ke HomeFragment
+            startActivity(intent)
             finish()
         }
 

@@ -36,6 +36,7 @@ import org.bangkit.kiddos_android.databinding.FragmentScanBinding
 import org.bangkit.kiddos_android.ui.activity.ScanResultActivity
 import org.bangkit.kiddos_android.ui.viewmodel.PredictViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.factory.PredictViewModelFactory
+import org.bangkit.kiddos_android.utils.NetworkUtils
 import java.io.File
 import java.io.FileOutputStream
 
@@ -92,32 +93,38 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
         }
 
         binding.buttonPredict.setOnClickListener {
-            selectedImageUri?.let { uri ->
-                val imageFile = getImageFileFromUri(uri)
-                val resizedImageFile = resizeImageFile(imageFile)
-                val imageRequestBody =
-                    resizedImageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imagePart = MultipartBody.Part.createFormData(
-                    "file",
-                    resizedImageFile.name,
-                    imageRequestBody
-                )
+            if (NetworkUtils.isNetworkAvailable(requireContext())) {
+                selectedImageUri?.let { uri ->
+                    val imageFile = getImageFileFromUri(uri)
+                    val resizedImageFile = resizeImageFile(imageFile)
+                    val imageRequestBody =
+                        resizedImageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imagePart = MultipartBody.Part.createFormData(
+                        "file",
+                        resizedImageFile.name,
+                        imageRequestBody
+                    )
 
-                lifecycleScope.launch {
-                    val userId = UserPreference.getInstance(requireContext()).getUserId().first()
-                    val userIdRequestBody =
-                        userId.toRequestBody("text/plain".toMediaTypeOrNull())
+                    lifecycleScope.launch {
+                        val userId = UserPreference.getInstance(requireContext()).getUserId().first()
+                        val userIdRequestBody =
+                            userId.toRequestBody("text/plain".toMediaTypeOrNull())
 
-                    predictViewModel.predict(imagePart, userIdRequestBody)
+                        predictViewModel.predict(imagePart, userIdRequestBody)
+                    }
+                } ?: run {
+                    Toast.makeText(
+                        requireContext(),
+                        "Silahkan pilih gambar terlebih dahulu",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            } ?: run {
-                Toast.makeText(
-                    requireContext(),
-                    "Silahkan pilih gambar terlebih dahulu",
-                    Toast.LENGTH_SHORT
-                ).show()
+            } else {
+                Toast.makeText(requireContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show()
+                Log.e("ScanFragment", "No internet connection")
             }
         }
+
 
         predictViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -126,14 +133,18 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
         predictViewModel.predictResult.observe(viewLifecycleOwner) { predictResponse: PredictResponse? ->
             if (predictResponse != null) {
                 if (predictResponse.status == "success") {
+                    Toast.makeText(requireContext(), "Scan berhasil", Toast.LENGTH_SHORT).show()
                     Log.d("ScanFragment", "Prediction successful: $predictResponse")
                     navigateToScanResult(predictResponse)
                     Handler(Looper.getMainLooper()).postDelayed({
                         predictViewModel.resetPredictResult()
-                    }, 1500)
+                    }, 3500)
                 } else {
-                    Toast.makeText(requireContext(), "Silahkan coba lagi.", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Terjadi kesalahan. Silahkan coba lagi", Toast.LENGTH_SHORT).show()
+                    Log.e("ScanFragment", "Prediction failed: ${predictResponse.message}")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        predictViewModel.resetPredictResult()
+                    }, 1000)
                 }
             }
         }

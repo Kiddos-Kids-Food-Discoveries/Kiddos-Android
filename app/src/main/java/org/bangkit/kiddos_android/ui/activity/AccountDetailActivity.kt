@@ -83,7 +83,7 @@ class AccountDetailActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 this@AccountDetailActivity,
-                                "Gambar tidak ditemukan",
+                                "Silahkan tambahkan foto profil",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -137,7 +137,7 @@ class AccountDetailActivity : AppCompatActivity() {
             val originalBitmap = BitmapFactory.decodeStream(inputStream)
 
             val outputStream = FileOutputStream(file)
-            originalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream) // Menyimpan gambar terkompres dengan kualitas 80%
+            originalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
 
             outputStream.flush()
             outputStream.close()
@@ -185,8 +185,8 @@ class AccountDetailActivity : AppCompatActivity() {
                     if (updateUserResponse?.status == "success") {
                         Toast.makeText(
                             this@AccountDetailActivity,
-                            "Update sukses, buka ulang aplikasi apabila foto profil tidak berubah.",
-                            Toast.LENGTH_SHORT
+                            "Update sukses. Buka ulang apabila tidak ada perubahan.",
+                            Toast.LENGTH_LONG
                         ).show()
 
                         UserPreference.getInstance(applicationContext).apply {

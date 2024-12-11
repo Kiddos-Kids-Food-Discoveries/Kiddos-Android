@@ -10,6 +10,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.bangkit.kiddos_android.data.remote.response.PredictResponse
 import org.bangkit.kiddos_android.data.repository.PredictRepository
+import org.json.JSONObject
 
 class PredictViewModel(private val repository: PredictRepository) : ViewModel() {
 
@@ -26,16 +27,35 @@ class PredictViewModel(private val repository: PredictRepository) : ViewModel() 
                 val response = repository.predict(file, userId)
                 if (response.isSuccessful) {
                     _predictResult.value = response.body()
+                    Log.e("PredictViewModel", "Predict Success")
                 } else {
-                    Log.e("PredictViewModel", "Predict failed: ${response.errorBody()?.string()}")
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = try {
+                        val json = errorResponse?.let { JSONObject(it) }
+                        json?.optString("message", "Unknown error")
+                    } catch (e: Exception) {
+                        "Unknown error"
+                    }
+
+                    _predictResult.value = errorMessage?.let {
+                        PredictResponse(
+                            status = "error",
+                            message = it,
+                            data = null
+                        )
+                    }
+                    Log.e("PredictViewModel", "Predict failed: $errorMessage")
                 }
 
             } catch (e: Exception) {
+                _predictResult.value = PredictResponse(status = "error", message = e.message ?: "Unknown error", data = null)
+                Log.e("PredictViewModel", "Predict exception: ${e.message}")
             } finally {
                 _isLoading.value = false
             }
         }
     }
+
 
     fun resetPredictResult() {
         _predictResult.value = null

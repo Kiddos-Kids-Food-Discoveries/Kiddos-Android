@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/purpleKiddos"
-        app:strokeWidth="3dp"
+        app:strokeWidth="2dp"
         tools:ignore="VisualLintBounds">
 
         <androidx.constraintlayout.widget.ConstraintLayout

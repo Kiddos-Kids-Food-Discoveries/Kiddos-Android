@@ -72,9 +72,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="45dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginEnd="30dp"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginBottom="30dp"
                         app:cardCornerRadius="40dp"
                         app:strokeColor="@color/purpleKiddos">
 
@@ -105,6 +105,9 @@
                             android:fontFamily="@font/inter_extrabold"
                             android:letterSpacing="0"
                             android:text="@string/rescan"
+                            app:iconGravity="textStart"
+                            app:iconSize="25dp"
+                            app:icon="@drawable/ic_scan"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -119,6 +122,9 @@
                             android:layout_height="80dp"
                             android:layout_marginEnd="25dp"
                             android:layout_marginBottom="20dp"
+                            app:icon="@drawable/ic_home"
+                            app:iconSize="25dp"
+                            app:iconGravity="textTop"
                             android:background="@drawable/button_orange"
                             android:fontFamily="@font/inter_extrabold"
                             android:letterSpacing="0"
@@ -153,7 +159,7 @@
                     android:layout_marginStart="22dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/inter_extrabold"
-                    android:text="@string/sawi"
+                    android:text="@string/food_title_scan_btm"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="29sp"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
@@ -166,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/translation"
+                    android:contentDescription="@string/button_translation"
                     android:src="@drawable/ic_translate"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintLeft_toRightOf="@id/foodNameDescription"
@@ -178,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/speak_out"
+                    android:contentDescription="@string/button_speech_translation"
                     android:src="@drawable/ic_voice"
                     app:layout_constraintBottom_toTopOf="@id/foodNutrition_recycler"
                     app:layout_constraintStart_toEndOf="@id/btnTranslation"
@@ -188,18 +194,32 @@
                     android:id="@+id/foodNutrition_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="20dp"
-                    android:contentDescription="@string/food_nutrition"
+                    android:clipToPadding="false"
+                    android:contentDescription="@string/food_nutrition_recycler"
                     android:orientation="horizontal"
                     android:paddingStart="15dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="0dp"
-                    android:clipToPadding="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/foodNameDescription"
                     tools:listitem="@layout/item_nutrition" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/per100G"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/per_100_gram_makanan"
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/foodDescription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/foodDescription"
@@ -208,21 +228,19 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="17dp"
                     android:fontFamily="@font/inter_medium"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="7dp"
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
-                    android:text="@string/food_description"
+                    android:paddingBottom="15dp"
+                    android:text="@string/result_description"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="18sp"
-                    android:lineSpacingExtra="7dp"
-                    android:paddingBottom="15dp"
-                    android:justificationMode="inter_word"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@id/per100G"
+                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

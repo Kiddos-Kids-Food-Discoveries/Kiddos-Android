@@ -32,6 +32,7 @@ import org.bangkit.kiddos_android.ui.viewmodel.FoodViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.HomeViewModel
 import org.bangkit.kiddos_android.ui.viewmodel.factory.FoodViewModelFactory
 import org.bangkit.kiddos_android.ui.viewmodel.factory.HomeViewModelFactory
+import org.bangkit.kiddos_android.utils.NetworkUtils
 
 class HomeFragment : Fragment() {
 
@@ -172,9 +173,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchArticles() {
-        binding.progressBarArticle.visibility = View.VISIBLE
-        homeViewModel.fetchArticles()
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            binding.progressBarArticle.visibility = View.VISIBLE
+            homeViewModel.fetchArticles()
+        } else {
+            Toast.makeText(requireContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     private fun fetchUserInfo() {
         lifecycleScope.launch {

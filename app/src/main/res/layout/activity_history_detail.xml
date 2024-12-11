@@ -30,7 +30,6 @@
                 app:strokeColor="@color/purpleKiddos">
 
                 <LinearLayout
-                    android:id="@+id/profileLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -73,9 +72,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="290dp"
                         android:layout_marginStart="25dp"
-                        android:layout_marginTop="45dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginEnd="25dp"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginBottom="35dp"
                         app:cardCornerRadius="40dp"
                         app:strokeColor="@color/purpleKiddos">
 
@@ -147,18 +146,32 @@
                     android:id="@+id/foodNutrition_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="20dp"
+                    android:clipToPadding="false"
                     android:contentDescription="@string/food_nutrition_recycler"
                     android:orientation="horizontal"
                     android:paddingStart="15dp"
+                    android:paddingTop="20dp"
                     android:paddingEnd="0dp"
-                    android:clipToPadding="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/foodNameDescription"
                     tools:listitem="@layout/item_nutrition" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/per100G"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="@string/per_100_gram_makanan"
+                    android:textColor="@color/purpleKiddos"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/foodDescription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/foodDescription"
@@ -167,21 +180,18 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="17dp"
                     android:fontFamily="@font/inter_medium"
+                    android:justificationMode="inter_word"
+                    android:lineSpacingExtra="7dp"
                     android:paddingStart="22dp"
                     android:paddingEnd="22dp"
-                    android:lineSpacingExtra="7dp"
                     android:paddingBottom="15dp"
                     android:text="@string/result_description"
                     android:textColor="@color/purpleKiddos"
                     android:textSize="18sp"
-                    android:justificationMode="inter_word"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/foodNutrition_recycler"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@id/per100G" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

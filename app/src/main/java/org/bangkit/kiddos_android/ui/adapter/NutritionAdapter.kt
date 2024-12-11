@@ -23,8 +23,8 @@ class NutritionAdapter(private val nutritionList: List<Pair<String, String>>) :
     inner class NutritionViewHolder(private val binding: ItemNutritionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(name: String, value: String) {
-            binding.nutritionName.text = value
-            binding.nutritionAmount.text = name
+            binding.nutritionAmount.text = value
+            binding.nutritionName.text = name
         }
     }
 }

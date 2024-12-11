@@ -46,7 +46,7 @@ class DailyReminderWorker(private val context: Context, params: WorkerParameters
 
         val builder = NotificationCompat.Builder(context, "daily_reminder_channel")
             .setSmallIcon(R.drawable.kiddos_full_icon)
-            .setContentTitle("KIDDOS")
+            .setContentTitle("KIDDOS!")
             .setContentText("Jangan Lupa Scan Makanananmu!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)

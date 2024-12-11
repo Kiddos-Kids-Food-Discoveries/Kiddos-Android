@@ -22,10 +22,11 @@ class SettingActivity : AppCompatActivity() {
 
     private val requestNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
-            ReminderManager.setupDailyReminder(this)
+            ReminderManager.setupDailyReminders(this)
             showImmediateNotification()
+            showNotificationToast(true)
         } else {
-            Toast.makeText(this, "Dibutuhkan izin notifkasi untuk mengaktifkan pengingat harian.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Dibutuhkan izin notifikasi untuk mengaktifkan pengingat harian.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -46,18 +47,25 @@ class SettingActivity : AppCompatActivity() {
                 }
                 if (isChecked) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        if (ContextCompat.checkSelfPermission(this@SettingActivity, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                            ReminderManager.setupDailyReminder(this@SettingActivity)
+                        if (ContextCompat.checkSelfPermission(
+                                this@SettingActivity,
+                                Manifest.permission.POST_NOTIFICATIONS
+                            ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            ReminderManager.setupDailyReminders(this@SettingActivity)
                             showImmediateNotification()
+                            showNotificationToast(true)
                         } else {
                             requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                         }
                     } else {
-                        ReminderManager.setupDailyReminder(this@SettingActivity)
+                        ReminderManager.setupDailyReminders(this@SettingActivity)
                         showImmediateNotification()
+                        showNotificationToast(true)
                     }
                 } else {
-                    ReminderManager.cancelDailyReminder(this@SettingActivity)
+                    ReminderManager.cancelDailyReminders(this@SettingActivity)
+                    showNotificationToast(false)
                 }
             }
         }
@@ -70,4 +78,14 @@ class SettingActivity : AppCompatActivity() {
     private fun showImmediateNotification() {
         ReminderManager.triggerImmediateNotification(this)
     }
+
+    private fun showNotificationToast(isEnabled: Boolean) {
+        val message = if (isEnabled) {
+            "Peningat diatur pada pukul 07, 13, dan 19"
+        } else {
+            "Pengingat dimatikan"
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
+

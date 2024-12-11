@@ -67,10 +67,11 @@ class HistoryAdapter(
 
         private fun formatTimestamp(timestamp: String): String {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
-            val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
+            val outputFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.US)
             val date = inputFormat.parse(timestamp)
             return outputFormat.format(date)
         }
+
 
         private fun showDeleteConfirmationDialog(historyItem: HistoryItem) {
             val context = binding.root.context

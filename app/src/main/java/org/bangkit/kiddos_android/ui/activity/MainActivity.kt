@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
+
+
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
                 "MainActivity",
                 "Navigated to ${destination.label}"
             )
+        }
+
+        val navigateTo = intent.getIntExtra("navigate_to", -1)
+        if (navigateTo != -1) {
+            navController.navigate(navigateTo)
         }
     }
 }

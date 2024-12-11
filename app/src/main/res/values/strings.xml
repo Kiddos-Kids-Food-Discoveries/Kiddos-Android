@@ -35,7 +35,7 @@
     <string name="take_photo">Ambil Foto</string>
     <string name="scan_photo">Scan</string>
     <string name="image_for_scan">Gambar untuk dipindai</string>
-    <string name="scan_your_fodies">Pindai Makananmu</string>
+    <string name="scan_your_fodies">Scan Makananmu</string>
     <string name="log_out">Keluar</string>
     <string name="hello_guest">Halo,</string>
     <string name="food_nutrition_recycler">Nutrisi Makanan</string>
@@ -67,19 +67,15 @@
     <string name="sign_up">Daftar</string>
     <string name="sawi">Sawi</string>
     <string name="scan_image">Gambar Scan</string>
-    <string name="rescan">Pindai Ulang</string>
+    <string name="rescan">Scan Ulang</string>
     <string name="home">Beranda</string>
-    <string name="translation">Terjemahan</string>
-    <string name="speak_out">Bicara</string>
-    <string name="food_nutrition">Nutrisi Makanan</string>
-    <string name="food_description">Pada bagian ini berisikan khasiat dari makanan jika ada khasiat untuk tubuh agar anak kecil itu paham, sedikit aja kok.</string>
     <string name="pengaturan">Pengaturan</string>
     <string name="aktifkan_peningat_harian">Aktifkan Peningat Harian</string>
-    <string name="scan">Pindai</string>
+    <string name="scan">Scan</string>
     <string name="histori">Riwayat</string>
     <string name="profil">Profil</string>
     <string name="hello">Halo,</string>
-    <string name="scan_capitalize">PINDAI</string>
+    <string name="scan_capitalize">SCAN</string>
     <string name="temukan_makanan_terbaik">Temukan Makanan Terbaik</string>
     <string name="sayur">Sayur</string>
     <string name="buah">Buah</string>
@@ -91,4 +87,6 @@
     <string name="title">Judul</string>
     <string name="description">Deskripsi</string>
     <string name="artikel_terbaik">Artikel Terbaik</string>
+    <string name="hapus">Hapus</string>
+    <string name="per_100_gram_makanan">*Per 100 gram makanan</string>
 </resources>

@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="@string/hello"
                 android:textColor="@color/white"
@@ -61,7 +61,7 @@
                 android:id="@+id/appIcon"
                 android:layout_width="170dp"
                 android:layout_height="206dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="-35dp"
                 android:background="@drawable/kiddos_icon_half"
                 android:contentDescription="@string/profile_image"
@@ -79,13 +79,11 @@
                 android:lineSpacingExtra="4dp"
                 android:text="@string/home_welcome_text"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toTopOf="@id/cardViewMain"
                 app:layout_constraintEnd_toStartOf="@id/appIcon"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/HelloName"
-                app:layout_constraintVertical_bias="0.473" />
+                app:layout_constraintTop_toBottomOf="@id/HelloName" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewMain"
@@ -174,7 +172,7 @@
                             android:fontFamily="@font/inter_extrabold"
                             android:text="@string/temukan_makanan_terbaik"
                             android:textColor="@color/purpleKiddos"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -322,7 +320,7 @@
                             android:fontFamily="@font/inter_extrabold"
                             android:text="@string/temukan_artikel_terbaik"
                             android:textColor="@color/purpleKiddos"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
 
                         <ProgressBar
                             android:id="@+id/progressBarArticle"
@@ -336,7 +334,7 @@
                             android:id="@+id/recyclerViewArticles"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="3dp"
+                            android:layout_marginHorizontal="10dp"
                             android:layout_marginTop="8dp"
                             android:contentDescription="@string/artikel_makanan"
                             android:orientation="vertical"
