@@ -106,7 +106,8 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
                     )
 
                     lifecycleScope.launch {
-                        val userId = UserPreference.getInstance(requireContext()).getUserId().first()
+                        val userId =
+                            UserPreference.getInstance(requireContext()).getUserId().first()
                         val userIdRequestBody =
                             userId.toRequestBody("text/plain".toMediaTypeOrNull())
 
@@ -120,7 +121,8 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
                     ).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Tidak ada koneksi internet", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e("ScanFragment", "No internet connection")
             }
         }
@@ -140,14 +142,33 @@ class ScanFragment : Fragment(R.layout.fragment_scan) {
                         predictViewModel.resetPredictResult()
                     }, 3500)
                 } else {
-                    Toast.makeText(requireContext(), "Terjadi kesalahan. Silahkan coba lagi", Toast.LENGTH_SHORT).show()
-                    Log.e("ScanFragment", "Prediction failed: ${predictResponse.message}")
+                    val errorMessage = predictResponse.message.lowercase()
+
+                    if (errorMessage.contains("timeout") || errorMessage.contains("time out") || errorMessage.contains(
+                            "connection"
+                        )
+                    ) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Koneksi server bermasalah. Silahkan coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Terjadi kesalahan. Silahkan coba lagi",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    Log.e("ScanFragment", "Prediction failed: $errorMessage")
                     Handler(Looper.getMainLooper()).postDelayed({
                         predictViewModel.resetPredictResult()
                     }, 1000)
                 }
             }
         }
+
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.navigation_home)

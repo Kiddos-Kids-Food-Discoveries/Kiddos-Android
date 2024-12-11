@@ -1,9 +1,11 @@
 package org.bangkit.kiddos_android.ui.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -13,6 +15,7 @@ import androidx.core.util.Pair
 import org.bangkit.kiddos_android.databinding.ItemHistoryBinding
 import org.bangkit.kiddos_android.domain.model.HistoryItem
 import org.bangkit.kiddos_android.ui.activity.HistoryDetailActivity
+import org.bangkit.kiddos_android.utils.NetworkUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,8 +43,14 @@ class HistoryAdapter(
             binding.tvDate.text = formatTimestamp(historyItem.timestamp)
 
             binding.iconDelete.setOnClickListener {
-                showDeleteConfirmationDialog(historyItem)
+                if (NetworkUtils.isNetworkAvailable(binding.root.context)) {
+                    showDeleteConfirmationDialog(historyItem)
+                } else {
+                    Toast.makeText(binding.root.context, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show()
+                    Log.e("HistoryAdapter", "No internet connection")
+                }
             }
+
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
