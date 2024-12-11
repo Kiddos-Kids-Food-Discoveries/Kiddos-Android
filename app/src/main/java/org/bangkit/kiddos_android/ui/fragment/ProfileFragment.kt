@@ -129,19 +129,13 @@ class ProfileFragment : Fragment() {
 
     @SuppressLint("QueryPermissionsNeeded")
     private fun sendEmail() {
-        val emailIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "message/rfc822"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("c014b4ky1807@bangkit.academy"))
-            putExtra(Intent.EXTRA_SUBJECT, "Kiddos")
-        }
-        if (emailIntent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(emailIntent)
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://wa.me/6281918332020"))
+        if (browserIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(browserIntent)
         } else {
-            Toast.makeText(requireContext(), "No email app found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "No browser app found", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     private fun observeViewModel() {
         homeViewModel.user.observe(viewLifecycleOwner) { user ->
@@ -149,7 +143,7 @@ class ProfileFragment : Fragment() {
                 Log.d("HomeFragment", "User Picture URL: ${it.userPicture}")
 
                 Glide.with(this)
-                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}") // Tambahkan timestamp untuk invalidasi cache
+                    .load(it.userPicture + "?timestamp=${System.currentTimeMillis()}")
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .placeholder(R.drawable.placeholder_profile)
@@ -169,10 +163,10 @@ class ProfileFragment : Fragment() {
             userPreference.getUserId().collect { userId ->
                 if (userId.isNotEmpty()) {
                     homeViewModel.fetchUser(userId)
-                    binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation when done
+                    binding.swipeRefreshLayout.isRefreshing = false
                 } else {
                     binding.profileName.text = getString(R.string.guest)
-                    binding.swipeRefreshLayout.isRefreshing = false // Stop the refresh animation
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         }
