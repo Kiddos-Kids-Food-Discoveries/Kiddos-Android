@@ -35,7 +35,9 @@ Download Link APK Kiddos :<br>
 ## Installation
 
 ### 1. Clone this Project to your Computer
-
+```bash
+git clone https://github.com/Kiddos-Kids-Food-Discoveries/Kiddos-Android.git
+```
 and wait until it finish downloaded.
 
 ### 2. Open the Project in your Android Studio
