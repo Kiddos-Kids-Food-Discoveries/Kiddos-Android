@@ -28,6 +28,9 @@ Download Link APK Kiddos :<br>
 <p align="center">
   <img src="3.png" width="800">
 </p>
+<p align="center">
+  <img src="4.png" width="800">
+</p>
 
 ## UI/UX Design
 - Link Prototype Design : [Prototype](https://www.figma.com/design/XAnos1WdKJqdFJHntiaVnq/Kiddos-UI---Bangkit?node-id=0-1&t=tzLYClI9wyiYcg0U-1)
