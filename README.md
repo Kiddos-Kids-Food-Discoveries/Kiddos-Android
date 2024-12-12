@@ -20,13 +20,13 @@ Download Link APK Kiddos :<br>
 
 ## Screenshots
 <p align="center">
-  <img src="#" width="800">
+  <img src="1.png" width="800">
 </p>
 <p align="center">
-  <img src="#" width="800">
+  <img src="2.png" width="800">
 </p>
 <p align="center">
-  <img src="#" width="800">
+  <img src="3.png" width="800">
 </p>
 
 ## UI/UX Design
