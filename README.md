@@ -19,7 +19,15 @@ Download Link APK Kiddos :<br>
 - [x] Profile
 
 ## Screenshots
-
+<p align="center">
+  <img src="#" width="800">
+</p>
+<p align="center">
+  <img src="#" width="800">
+</p>
+<p align="center">
+  <img src="#" width="800">
+</p>
 
 ## UI/UX Design
 - Link Prototype Design : [Prototype](https://www.figma.com/design/XAnos1WdKJqdFJHntiaVnq/Kiddos-UI---Bangkit?node-id=0-1&t=tzLYClI9wyiYcg0U-1)
