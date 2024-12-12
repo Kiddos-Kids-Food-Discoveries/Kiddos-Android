@@ -220,11 +220,6 @@ class AccountDetailActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 binding.progressBarLoading.visibility = View.GONE
-                Toast.makeText(
-                    this@AccountDetailActivity,
-                    "Error: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
