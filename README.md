@@ -20,16 +20,16 @@ Download Link APK Kiddos :<br>
 
 ## Screenshots
 <p align="center">
-  <img src="1.png" width="800">
+  <img src="ss1.png" width="800">
 </p>
 <p align="center">
-  <img src="2.png" width="800">
+  <img src="ss2.png" width="800">
 </p>
 <p align="center">
-  <img src="3.png" width="800">
+  <img src="ss3.png" width="800">
 </p>
 <p align="center">
-  <img src="4.png" width="800">
+  <img src="ss4.png" width="800">
 </p>
 
 ## UI/UX Design
