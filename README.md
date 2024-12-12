@@ -1,10 +1,7 @@
 
 # Kiddos (Kids' Food Discoveries)
 
-Kiddos (Kids' Food Discoveries) is an educational app specifically designed for children and parents. This app aims to enhance children's understanding 
-of food in an interactive and enjoyable way. Its main features include the ability to scan food using the device's camera or upload a photo from the internal gallery,
-translate food names into various languages to support cross-cultural learning, and provide detailed nutritional information about the scanned food. By using Kiddos,
-users can not only gain knowledge about food but also increase their awareness of making healthy and nutritious food choices.
+Kiddos (Kids' Food Discoveries) is an educational application specifically designed for children and parents. This application aims to enhance children's understanding of food in an interactive and enjoyable way. Its main features include the ability to scan food using the device's camera or upload a photo from the internal gallery, translate food names into various languages with a text-to-speech feature to support cross-cultural learning, and provide detailed nutritional information about the scanned food, along with recommended meal ideas that can be prepared based on the scanned food results. By using Kiddos, users can not only gain valuable knowledge about food but also increase their awareness of making healthy and nutritious food choices.
 
 ## Deployment Link APK Kiddos (Kids' Food Discoveries)
 
