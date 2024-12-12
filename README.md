@@ -18,6 +18,7 @@ Download Link APK Kiddos :<br>
 - [x] Scan History
 - [x] Bottom Navigation
 - [x] Translation Name of Foods
+- [x] Text to Speech
 - [x] Profile
 
 ## Screenshots
